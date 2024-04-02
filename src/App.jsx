@@ -1,9 +1,18 @@
-import './App.css'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import SelectRole from './Components/RoleSelection/SelectRole';
 
 function App() {
   return (
     <>
-      hi
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<SelectRole/>}/>
+        </Routes>
+      </Router>
     </>
   )
 }
