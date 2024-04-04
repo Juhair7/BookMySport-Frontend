@@ -10,6 +10,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router';
+import Cookies from 'js-cookie';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -24,14 +26,22 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard(props) {
     const [expanded, setExpanded] = React.useState(false);
-    const { role, description, moreDescription, image } = props
+    const { role, description, moreDescription, image, redirect } = props
+    const navigate = useNavigate()
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-    const handleRoleRedirect=()=>{
-
+    const handleRoleRedirect = (redirect) => {
+        if (redirect === 'player') {
+            navigate('/playersignup')
+            Cookies.set("role", "user")
+        }
+        else {
+            navigate('/spreg')
+            Cookies.set("role", "serviceprovider")
+        }
     }
 
     return (
@@ -44,7 +54,7 @@ export default function RecipeReviewCard(props) {
                 component="img"
                 image={image}
                 alt="Paella dish"
-                style={{height:"299px"}}
+                style={{ height: "299px" }}
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
@@ -52,7 +62,7 @@ export default function RecipeReviewCard(props) {
                 </Typography>
             </CardContent>
             <div className='text-center'>
-                <Button variant="contained" onClick={handleRoleRedirect}>Become a {role}</Button>
+                <Button variant="contained" onClick={() => handleRoleRedirect(redirect)}>Become a {role}</Button>
             </div>
             <CardActions disableSpacing>
                 <ExpandMore
