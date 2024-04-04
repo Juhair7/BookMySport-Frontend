@@ -1,13 +1,89 @@
+import axios from 'axios'
+import Cookies from 'js-cookie';
 import React from 'react'
+import { useState, useEffect } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+import { useNavigate } from 'react-router';
 
 const UserSignInTemp = () => {
+
+    const navigate = useNavigate()
+
+    const [selectedRole, setSelectedRole] = useState(null);
+
+    const handleRoleSelection = (role) => {
+        setSelectedRole(role)
+    };
+
+    useEffect(() => {
+        if (selectedRole === "user") {
+            Cookies.set("role", "user");
+        } else if (selectedRole === "serviceProvider") {
+            Cookies.set("role", "serviceprovider");
+        }
+    }, [selectedRole]);
+
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: ""
+    })
+
+    const handleChange = (e) => {
+        setLoginData({ ...loginData, [e.target.name]: e.target.value })
+    }
+
+    const handleSignIn = async (e) => {
+        e.preventDefault()
+        const loadingToastId = toast.loading('Logging in...', {
+            duration: Infinity,
+            position: 'top-right'
+        });
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+                "role": Cookies.get("role")
+            }
+            const response = await axios.post('http://localhost:8090/api/login', {
+                email: loginData.email,
+                password: loginData.password
+            }, { headers })
+
+            const data = await response.data
+
+            if (data.success) {
+                toast.success('Login Successfull', {
+                    duration: 3000,
+                    position: "top-right"
+                })
+                navigate('/login/otpverification')
+            }
+            else {
+                toast.error('Invalid email and password', {
+                    duration: 3000,
+                    position: 'top-right'
+                });
+                navigate('/login')
+            }
+
+        } catch (error) {
+            toast.error('Something went wrong. Try again', {
+                duration: 3000,
+                position: 'top-right'
+            });
+            navigate('/login')
+        }
+        finally {
+            toast.dismiss(loadingToastId);
+        }
+    }
+
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <img
-                        className="mx-auto h-10 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        className="mx-auto h-20 w-20 rounded-full"
+                        src="https://avatars.githubusercontent.com/u/158540243?s=48&v=4"
                         alt="Your Company"
                     />
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -29,6 +105,7 @@ const UserSignInTemp = () => {
                                     autoComplete="email"
                                     required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>
@@ -52,7 +129,28 @@ const UserSignInTemp = () => {
                                     autoComplete="current-password"
                                     required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    onChange={handleChange}
                                 />
+                            </div>
+                        </div>
+
+                        <div className='flex flex-wrap'>
+                            <div className='mx-12'>
+                                <button
+                                    className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${selectedRole === "user" ? "bg-black" : "bg-indigo-600"}`}
+                                    onClick={() => handleRoleSelection('user')}
+                                >
+                                    Player
+                                </button>
+                            </div>
+
+                            <div className='mx-12'>
+                                <button
+                                    className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${selectedRole === "serviceProvider" ? "bg-black" : "bg-indigo-600"}`}
+                                    onClick={() => handleRoleSelection('serviceProvider')}
+                                >
+                                    Service Provider
+                                </button>
                             </div>
                         </div>
 
@@ -60,6 +158,7 @@ const UserSignInTemp = () => {
                             <button
                                 type="submit"
                                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                onClick={handleSignIn}
                             >
                                 Sign in
                             </button>
@@ -74,6 +173,7 @@ const UserSignInTemp = () => {
                     </p>
                 </div>
             </div>
+            <Toaster />
         </>
     )
 }

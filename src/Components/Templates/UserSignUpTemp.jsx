@@ -4,10 +4,12 @@ import { useDispatch } from 'react-redux'
 import { userRegMethod } from '../../redux/slices/UserRegSlice'
 import { useState } from 'react'
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router';
 
 const UserSignUpTemp = () => {
 
     const dispatch = useDispatch()
+    const navigate=useNavigate()
 
     const [userData, setuserData] = useState({
         userName: "",
@@ -23,7 +25,6 @@ const UserSignUpTemp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log("UserData is ",userData)
         if (!userData.userName || !userData.email || !userData.phoneNumber || !userData.password) {
             toast.error('Please fill in all required fields.', {
                 duration: 3000,
@@ -187,7 +188,7 @@ const UserSignUpTemp = () => {
                 </div>
 
                 <div className="mt-6 flex items-center justify-right gap-x-6">
-                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900" onClick={()=>navigate('/')}>
                         Cancel
                     </button>
                     <button
