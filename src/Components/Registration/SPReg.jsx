@@ -4,8 +4,10 @@ import SPSignUpTemp from '../Templates/SPSignUpTemp'
 const SPReg = () => {
   return (
     <>
-      {/* <SPSignUpTemp/> */}
-      HI
+      <p className='text-center text-xl'>Register as a service provider</p>
+      <div className='flex justify-center items-center my-3'>
+        <SPSignUpTemp />
+      </div>
     </>
   )
 }

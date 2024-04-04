@@ -23,7 +23,7 @@ const UserSignUpTemp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+        console.log("UserData is ",userData)
         if (!userData.userName || !userData.email || !userData.phoneNumber || !userData.password) {
             toast.error('Please fill in all required fields.', {
                 duration: 3000,

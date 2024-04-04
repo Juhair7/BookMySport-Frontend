@@ -1,28 +1,85 @@
 import React from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import {spRegMethod} from '../../redux/slices/SPRegSlice'
 
 const SPSignUpTemp = () => {
+
+    const dispatch=useDispatch()
 
     const [spData, setspData] = useState({
         userName: "",
         email: "",
         phoneNumber: "",
         password: "",
-        confirmPassword:"",
-        address:"",
-        centreName:"",
-        startTime:0,
-        stopTime:0
+        confirmPassword: "",
+        address: "",
+        centreName: "",
+        startTime: "",
+        stopTime: ""
     })
 
     const handleChange = (e) => {
         setspData({ ...spData, [e.target.name]: e.target.value })
     }
 
-  return (
-    <>
-        <form>
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        if (!spData.userName || !spData.email || !spData.phoneNumber || !spData.password) {
+            toast.error('Please fill in all required fields.', {
+                duration: 3000,
+                position: 'top-right'
+            });
+            return;
+        }
+
+        if (spData.password !== spData.confirmPassword) {
+            toast.error('Passwords do not match', {
+                duration: 3000,
+                position: 'top-right'
+            });
+            return;
+        }
+
+        const response = await dispatch(spRegMethod(spData));
+
+
+        const loadingToastId = toast.loading('Registering...', {
+            duration: Infinity,
+            position: 'top-right'
+        });
+
+        try {
+            if (response.payload.success) {
+                Cookies.set("token", response.payload.token)
+                toast.success('Registration success', {
+                    duration: 3000,
+                    position: 'top-right'
+                });
+            }
+            else {
+                toast.error('User with mail exists', {
+                    duration: 3000,
+                    position: 'top-right'
+                });
+            }
+        } catch (error) {
+            toast.error('Something went wrong. Try again', {
+                duration: 3000,
+                position: 'top-right'
+            });
+        } finally {
+            toast.dismiss(loadingToastId);
+        }
+
+    }
+
+    return (
+        <>
+            <form>
                 <div className="space-y-12">
                     <div className="pb-12">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
@@ -116,7 +173,7 @@ const SPSignUpTemp = () => {
                                     </div>
                                 </div>
                             </div>
-                            
+
 
                             <div className="sm:col-span-4">
                                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -219,8 +276,8 @@ const SPSignUpTemp = () => {
                 </div>
                 <Toaster />
             </form>
-    </>
-  )
+        </>
+    )
 }
 
 export default SPSignUpTemp
