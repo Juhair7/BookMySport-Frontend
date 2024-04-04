@@ -6,6 +6,7 @@ import {
 import SelectRole from './Components/RoleSelection/SelectRole';
 import UserReg from './Components/Registration/UserReg'
 import SPReg from './Components/Registration/SPReg'
+import UserSignInTemp from "./Components/Templates/UserSignInTemp";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/" element={<SelectRole/>}/>
           <Route exact path="/playersignup" element={<UserReg/>}/>
           <Route exact path="/spreg" element={<SPReg/>}/>
+          <Route exact path="/login" element={<UserSignInTemp/>}/>
 
         </Routes>
       </Router>

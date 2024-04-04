@@ -4,10 +4,12 @@ import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import {spRegMethod} from '../../redux/slices/SPRegSlice'
+import { useNavigate } from 'react-router';
 
 const SPSignUpTemp = () => {
 
     const dispatch=useDispatch()
+    const navigate=useNavigate()
 
     const [spData, setspData] = useState({
         userName: "",
@@ -83,14 +85,14 @@ const SPSignUpTemp = () => {
             <form>
                 <div className="space-y-12">
                     <div className="pb-12 mt-5">
-                        <h2 className="text-base font-semibold leading-7 text-black">Profile</h2>
+                        <h2 className="text-base leading-7 text-black text-lg">Profile</h2>
                         <p className="mt-1 text-sm leading-6 text-gray-600 font-bold">
                             Enter all the details below to start booking slots on BookMySport Platform
                         </p>
 
                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-4">
-                                <label htmlFor="userName" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="userName" className="block text-sm font-medium leading-6 text-gray-900 text-lg">
                                     Username
                                 </label>
                                 <div className="mt-2">
@@ -120,7 +122,7 @@ const SPSignUpTemp = () => {
                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                             <div className="sm:col-span-4">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className="block text-sm font-bold leading-6 text-gray-900 text-lg">
                                     Email address
                                 </label>
                                 <div className="mt-2">
@@ -138,7 +140,7 @@ const SPSignUpTemp = () => {
                             </div>
 
                             <div className="sm:col-span-4">
-                                <label htmlFor="userName" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="userName" className="block text-sm font-bold leading-6 text-gray-900 text-lg">
                                     Address
                                 </label>
                                 <div className="mt-2">
@@ -158,7 +160,7 @@ const SPSignUpTemp = () => {
                             </div>
 
                             <div className="sm:col-span-4">
-                                <label htmlFor="userName" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="userName" className="block text-sm font-bold leading-6 text-gray-900 text-lg">
                                     Playground Name
                                 </label>
                                 <div className="mt-2">
@@ -178,7 +180,7 @@ const SPSignUpTemp = () => {
 
 
                             <div className="sm:col-span-4">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className="block text-sm font-bold leading-6 text-gray-900 text-lg">
                                     Phone Number
                                 </label>
                                 <div className="mt-2">
@@ -196,7 +198,7 @@ const SPSignUpTemp = () => {
                             </div>
 
                             <div className="sm:col-span-4">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className="block text-sm font-bold leading-6 text-gray-900 text-lg">
                                     Start time
                                 </label>
                                 <div className="mt-2">
@@ -214,7 +216,7 @@ const SPSignUpTemp = () => {
                             </div>
 
                             <div className="sm:col-span-4">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className="block text-sm font-bold leading-6 text-gray-900 text-lg">
                                     Stop time
                                 </label>
                                 <div className="mt-2">
@@ -232,7 +234,7 @@ const SPSignUpTemp = () => {
                             </div>
 
                             <div className="sm:col-span-4">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className="block text-sm font-bold leading-6 text-gray-900 text-lg">
                                     Password
                                 </label>
                                 <div className="mt-2">
@@ -249,7 +251,7 @@ const SPSignUpTemp = () => {
                             </div>
 
                             <div className="sm:col-span-4">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="email" className="block text-sm font-bold leading-6 text-gray-900 text-lg">
                                     Confirm Password
                                 </label>
                                 <div className="mt-2">
@@ -270,7 +272,8 @@ const SPSignUpTemp = () => {
                 </div>
 
                 <div className="flex items-center justify-right gap-x-6">
-                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900"
+                    onClick={()=>navigate("/")}>
                         Cancel
                     </button>
                     <button

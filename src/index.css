@@ -78,3 +78,29 @@ button:focus-visible {
   font-weight: 500;
   font-style: normal;
 }
+::-webkit-scrollbar-button {
+  display: block;
+  background-color: #ccc; /* Background color of the button */
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 5px; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(165, 228, 171); 
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(17, 85, 15); 
+}
+
+::-webkit-scrollbar-button:start {
+  background-image: url('up-arrow.svg'); /* Use an image for the up or left arrow */
+}
+
+/* Apply specific styles to the scrollbar's end button (down or right arrow) */
+::-webkit-scrollbar-button:end {
+  background-image: url('up-arrow.svg'); /* Use an image for the down or right arrow */
+}
