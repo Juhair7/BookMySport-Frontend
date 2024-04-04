@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
 export const userRegMethod = createAsyncThunk('userReg', async (userData, thunkAPI) => {
 
@@ -17,10 +18,13 @@ export const userRegMethod = createAsyncThunk('userReg', async (userData, thunkA
         }, { headers })
 
         const data = await response.data
-        Cookies.set("token",data.token)
         return data
+
     } catch (error) {
-        console.log(error)
+        toast.error('Something went wrong. Try again', {
+            duration: 3000,
+            position: 'top-right'
+        });
     }
 })
 

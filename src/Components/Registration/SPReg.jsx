@@ -1,9 +1,11 @@
 import React from 'react'
+import SPSignUpTemp from '../Templates/SPSignUpTemp'
 
 const SPReg = () => {
   return (
     <>
-      <h1 className='text-sky-400'>SP Reg</h1>
+      {/* <SPSignUpTemp/> */}
+      HI
     </>
   )
 }
