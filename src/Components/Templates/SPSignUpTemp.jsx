@@ -79,16 +79,16 @@ const SPSignUpTemp = () => {
 
     return (
         <>
-        <p className='text-center text-xl'>Register as a service provider</p>
+        <p className='text-left text-xl' style={{marginRight:"-10px"}}>Register as a service provider</p>
             <form>
                 <div className="space-y-12">
-                    <div className="pb-12">
+                    <div className="pb-12 mt-5">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
                         <p className="mt-1 text-sm leading-6 text-gray-600">
                             Enter all the details below to start booking slots on BookMySport Platform
                         </p>
 
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-4">
                                 <label htmlFor="userName" className="block text-sm font-medium leading-6 text-gray-900">
                                     Username
@@ -100,7 +100,7 @@ const SPSignUpTemp = () => {
                                             name="userName"
                                             id="userName"
                                             autoComplete="username"
-                                            className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="Enter your username"
                                             minLength={5}
                                             maxLength={15}
@@ -117,7 +117,7 @@ const SPSignUpTemp = () => {
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
                         <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
 
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                             <div className="sm:col-span-4">
                                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -130,6 +130,7 @@ const SPSignUpTemp = () => {
                                         type="email"
                                         autoComplete="email"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Enter your email"
                                         required
                                         onChange={handleChange}
                                     />
@@ -147,8 +148,8 @@ const SPSignUpTemp = () => {
                                             name="address"
                                             id="address"
                                             autoComplete="address"
-                                            className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                            placeholder="Enter your username"
+                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            placeholder="Enter your address"
                                             required
                                             onChange={handleChange}
                                         />
@@ -166,8 +167,8 @@ const SPSignUpTemp = () => {
                                             type="text"
                                             name="centreName"
                                             id="centreName"
-                                            className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                            placeholder="Enter your username"
+                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            placeholder="Enter your playground name"
                                             required
                                             onChange={handleChange}
                                         />
@@ -187,6 +188,7 @@ const SPSignUpTemp = () => {
                                         type="number"
                                         autoComplete="number"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Enter your phone number"
                                         required
                                         onChange={handleChange}
                                     />
@@ -204,6 +206,7 @@ const SPSignUpTemp = () => {
                                         type="number"
                                         autoComplete="number"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Enter your opening time of your playground"
                                         required
                                         onChange={handleChange}
                                     />
@@ -221,6 +224,7 @@ const SPSignUpTemp = () => {
                                         type="number"
                                         autoComplete="number"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Enter your closing time of your playground"
                                         required
                                         onChange={handleChange}
                                     />
@@ -237,6 +241,7 @@ const SPSignUpTemp = () => {
                                         name="password"
                                         type="password"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Enter your password"
                                         required
                                         onChange={handleChange}
                                     />
@@ -253,6 +258,7 @@ const SPSignUpTemp = () => {
                                         name="confirmPassword"
                                         type="password"
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Enter your the password again"
                                         required
                                         onChange={handleChange}
                                     />
@@ -263,7 +269,7 @@ const SPSignUpTemp = () => {
                     </div>
                 </div>
 
-                <div className="mt-6 flex items-center justify-right gap-x-6">
+                <div className="flex items-center justify-right gap-x-6">
                     <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
                         Cancel
                     </button>
