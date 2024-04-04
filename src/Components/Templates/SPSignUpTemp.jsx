@@ -79,12 +79,12 @@ const SPSignUpTemp = () => {
 
     return (
         <>
-        <p className='text-left text-xl' style={{marginRight:"-10px"}}>Register as a service provider</p>
+        <p className='text-left text-xl font-bold' style={{marginRight:"-10px"}}>Register as a service provider</p>
             <form>
                 <div className="space-y-12">
                     <div className="pb-12 mt-5">
-                        <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">
+                        <h2 className="text-base font-semibold leading-7 text-black">Profile</h2>
+                        <p className="mt-1 text-sm leading-6 text-gray-600 font-bold">
                             Enter all the details below to start booking slots on BookMySport Platform
                         </p>
 
@@ -115,7 +115,7 @@ const SPSignUpTemp = () => {
 
                     <div className="pb-12" style={{ marginTop: "-10px" }}>
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
+                        <p className="mt-1 text-sm leading-6 text-gray-600 font-bold">Use a permanent address where you can receive mail.</p>
 
                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 

@@ -7,7 +7,7 @@ const SelectRole = () => {
 
     return (
         <>
-            <div style={{ backgroundImage: 'url("pexels-pixabay-46798.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundAttachment: 'fixed',border:'2px solid black' }}>
+            <div style={{ backgroundImage: 'url("pexels-pixabay-46798.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundAttachment: '',border:'2px solid black',height:"835px" }}>
                 <p className='text-center text-xl g-font'>Select the role you wish to register for on BookMySport</p>
                 <div className="flex justify-center items-center w-1/2 mx-auto my-9">
                     <div className="mx-5">
