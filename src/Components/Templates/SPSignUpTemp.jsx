@@ -79,6 +79,7 @@ const SPSignUpTemp = () => {
 
     return (
         <>
+        <p className='text-center text-xl'>Register as a service provider</p>
             <form>
                 <div className="space-y-12">
                     <div className="pb-12">
