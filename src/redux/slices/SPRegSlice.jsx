@@ -10,8 +10,6 @@ export const spRegMethod = createAsyncThunk('spReg', async (spData, thunkAPI) =>
             "role": Cookies.get("role")
         }
 
-        console.log("SpDAta is ",spData)
-
         const response = await axios.post('http://localhost:8090/api/adduser', {
             userName: spData.userName,
             email: spData.email,
@@ -26,7 +24,6 @@ export const spRegMethod = createAsyncThunk('spReg', async (spData, thunkAPI) =>
         const data = await response.data
         return data
     } catch (error) {
-        console.log("Error is ",error.message)
         toast.error('Something went wrong. Try again', {
             duration: 3000,
             position: 'top-right'
