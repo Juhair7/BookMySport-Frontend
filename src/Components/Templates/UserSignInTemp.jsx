@@ -4,29 +4,34 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setEmail } from '../../redux/slices/EmailStoreSlice'
 
 const UserSignInTemp = () => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [selectedRole, setSelectedRole] = useState(null);
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: ""
+    })
 
-    const handleRoleSelection = (role) => {
+    const handleRoleSelection = (role, e) => {
+        e.preventDefault()
         setSelectedRole(role)
     };
 
     useEffect(() => {
         if (selectedRole === "user") {
             Cookies.set("role", "user");
+            Cookies.set("email", loginData.email)
         } else if (selectedRole === "serviceProvider") {
             Cookies.set("role", "serviceprovider");
+            Cookies.set("email", loginData.email)
         }
     }, [selectedRole]);
-
-    const [loginData, setLoginData] = useState({
-        email: "",
-        password: ""
-    })
 
     const handleChange = (e) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value })
@@ -55,6 +60,7 @@ const UserSignInTemp = () => {
                     duration: 3000,
                     position: "top-right"
                 })
+                dispatch(setEmail(loginData.email))
                 navigate('/login/otpverification')
             }
             else {
@@ -138,7 +144,7 @@ const UserSignInTemp = () => {
                             <div className='mx-12'>
                                 <button
                                     className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${selectedRole === "user" ? "bg-black" : "bg-indigo-600"}`}
-                                    onClick={() => handleRoleSelection('user')}
+                                    onClick={(e) => handleRoleSelection('user',e)}
                                 >
                                     Player
                                 </button>
@@ -147,7 +153,7 @@ const UserSignInTemp = () => {
                             <div className='mx-12'>
                                 <button
                                     className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${selectedRole === "serviceProvider" ? "bg-black" : "bg-indigo-600"}`}
-                                    onClick={() => handleRoleSelection('serviceProvider')}
+                                    onClick={(e) => handleRoleSelection('serviceProvider',e)}
                                 >
                                     Service Provider
                                 </button>

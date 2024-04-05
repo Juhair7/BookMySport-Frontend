@@ -1,0 +1,15 @@
+input[type=number] {
+  -moz-appearance: textfield;
+  /* Firefox */
+  -webkit-appearance: textfield;
+  /* Chrome, Safari, Edge */
+  appearance: textfield;
+  /* Other browsers */
+}
+
+/* Hide the spin buttons in Chrome and Safari */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
