@@ -26,10 +26,8 @@ const UserSignInTemp = () => {
     useEffect(() => {
         if (selectedRole === "user") {
             Cookies.set("role", "user");
-            Cookies.set("email", loginData.email)
         } else if (selectedRole === "serviceProvider") {
             Cookies.set("role", "serviceprovider");
-            Cookies.set("email", loginData.email)
         }
     }, [selectedRole]);
 
@@ -122,7 +120,7 @@ const UserSignInTemp = () => {
                                     Password
                                 </label>
                                 <div className="text-sm">
-                                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                    <a href="/forgotpassword" className="font-semibold text-indigo-600 hover:text-indigo-500">
                                         Forgot password?
                                     </a>
                                 </div>
@@ -173,7 +171,7 @@ const UserSignInTemp = () => {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not a member?{' '}
-                        <a href="/" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                        <a href="/roleselect" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             Sign up
                         </a>
                     </p>

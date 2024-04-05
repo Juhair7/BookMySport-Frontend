@@ -9,6 +9,8 @@ import SPReg from './Components/Registration/SPReg'
 import UserLogin from "./Components/LoginFunction/UserLogin";
 import OTPVerification from "./Components/LoginFunction/OTPVerification";
 import NotFound from "./Components/Errorpages/NotFound";
+import ForgotPassword from "./Components/LoginFunction/ForgotPassword";
+import ResetPassword from "./Components/LoginFunction/ResetPassword";
 
 function App() {
   return (
@@ -22,7 +24,10 @@ function App() {
 
           <Route exact path="/login" element={<UserLogin />} />
           <Route path="/login/otpverification" element={<OTPVerification />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="*" element={<NotFound />} />
+          
 
         </Routes>
       </Router>
