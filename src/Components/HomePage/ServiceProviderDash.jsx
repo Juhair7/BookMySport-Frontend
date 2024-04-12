@@ -1,8 +1,13 @@
 import React from 'react'
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 const ServiceProviderDash = () => {
+  const navigate = useNavigate()
   return (
-    <div>ServiceProviderDash</div>
+    <>
+      <Button variant="contained" onClick={() => navigate('/sportsupload')}>Upload Sports</Button>
+    </>
   )
 }
 
