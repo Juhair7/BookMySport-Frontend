@@ -4,7 +4,7 @@ import UserSignInTemp from '../Templates/UserSignInTemp'
 const UserLogin = () => {
   return (
     <>
-        <UserSignInTemp/>
+      <UserSignInTemp />
     </>
   )
 }

@@ -12,6 +12,8 @@ import NotFound from "./Components/Errorpages/NotFound";
 import ForgotPassword from "./Components/LoginFunction/ForgotPassword";
 import ResetPassword from "./Components/LoginFunction/ResetPassword";
 import MainHome from "./Components/HomePage/MainHome";
+import ServiceProviderDash from "./Components/HomePage/ServiceProviderDash";
+import SportsUpload from "./Components/ServiceProviderSportsUpload/SportsUpload";
 
 function App() {
   return (
@@ -27,6 +29,13 @@ function App() {
           <Route path="/login/otpverification" element={<OTPVerification />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
+
+
+
+          <Route path="/serviceproviderdashboard" element={<ServiceProviderDash />} />
+          <Route path="/sportsupload" element={<SportsUpload />} />
+
+
           <Route path="*" element={<NotFound />} />
           
 

@@ -37,6 +37,14 @@ const UserSignInTemp = () => {
 
     const handleSignIn = async (e) => {
         e.preventDefault()
+        if (Cookies.get("role") === null) {
+            toast.error('Choose the role below', {
+                duration: 3000,
+                position: 'top-right'
+            });
+
+            return;
+        }
         const loadingToastId = toast.loading('Logging in...', {
             duration: Infinity,
             position: 'top-right'
@@ -46,7 +54,8 @@ const UserSignInTemp = () => {
                 "Content-Type": "application/json",
                 "role": Cookies.get("role")
             }
-            const response = await axios.post('http://localhost:8090/api/login', {
+            console.log('/api')
+            const response = await axios.post('/api/login', {
                 email: loginData.email,
                 password: loginData.password
             }, { headers })
@@ -142,7 +151,7 @@ const UserSignInTemp = () => {
                             <div className='mx-12'>
                                 <button
                                     className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${selectedRole === "user" ? "bg-black" : "bg-indigo-600"}`}
-                                    onClick={(e) => handleRoleSelection('user',e)}
+                                    onClick={(e) => handleRoleSelection('user', e)}
                                 >
                                     Player
                                 </button>
@@ -151,7 +160,7 @@ const UserSignInTemp = () => {
                             <div className='mx-12'>
                                 <button
                                     className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${selectedRole === "serviceProvider" ? "bg-black" : "bg-indigo-600"}`}
-                                    onClick={(e) => handleRoleSelection('serviceProvider',e)}
+                                    onClick={(e) => handleRoleSelection('serviceProvider', e)}
                                 >
                                     Service Provider
                                 </button>
