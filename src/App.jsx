@@ -11,13 +11,14 @@ import OTPVerification from "./Components/LoginFunction/OTPVerification";
 import NotFound from "./Components/Errorpages/NotFound";
 import ForgotPassword from "./Components/LoginFunction/ForgotPassword";
 import ResetPassword from "./Components/LoginFunction/ResetPassword";
+import MainHome from "./Components/HomePage/MainHome";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route exact path="/" element={<h1>Dashboard</h1>} />
+          <Route exact path="/" element={<MainHome/>} />
           <Route exact path="/roleselect" element={<SelectRole />} />
           <Route exact path="/playersignup" element={<UserReg />} />
           <Route exact path="/spreg" element={<SPReg />} />

@@ -4,6 +4,7 @@ import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 
 const ResetPassword = () => {
 
@@ -33,7 +34,7 @@ const ResetPassword = () => {
             console.log(creds.password,creds.confirmPassword)
             const headers = {
                 "Content-Type": "application/json",
-                "role": "user",
+                "role": Cookies.get("role"),
                 "email": email,
                 "passwordFromUser": creds.password
             }
