@@ -7,6 +7,7 @@ const ServiceProviderDash = () => {
   return (
     <>
       <Button variant="contained" onClick={() => navigate('/sportsupload')}>Upload Sports</Button>
+      <Button variant="contained" onClick={() => navigate('/imagesupload')}>Images Sports</Button>
     </>
   )
 }
