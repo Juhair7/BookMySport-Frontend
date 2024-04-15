@@ -10,7 +10,7 @@ export const spRegMethod = createAsyncThunk('spReg', async (spData, thunkAPI) =>
             "role": Cookies.get("role")
         }
 
-        const response = await axios.post('/auth/api/adduser', {
+        const response = await axios.post('api/adduser', {
             userName: spData.userName,
             email: spData.email,
             phoneNumber: spData.phoneNumber,

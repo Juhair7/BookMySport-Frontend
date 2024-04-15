@@ -14,6 +14,7 @@ import ResetPassword from "./Components/LoginFunction/ResetPassword";
 import MainHome from "./Components/HomePage/MainHome";
 import ServiceProviderDash from "./Components/HomePage/ServiceProviderDash";
 import SportsUpload from "./Components/ServiceProviderSportsUpload/SportsUpload";
+import ImagesUpload from "./Components/ServiceProviderSportsUpload/ImagesUpload";
 
 function App() {
   return (
@@ -24,7 +25,6 @@ function App() {
           <Route exact path="/roleselect" element={<SelectRole />} />
           <Route exact path="/playersignup" element={<UserReg />} />
           <Route exact path="/spreg" element={<SPReg />} />
-
           <Route exact path="/login" element={<UserLogin />} />
           <Route path="/login/otpverification" element={<OTPVerification />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
@@ -34,10 +34,10 @@ function App() {
 
           <Route path="/serviceproviderdashboard" element={<ServiceProviderDash />} />
           <Route path="/sportsupload" element={<SportsUpload />} />
+          <Route exact path="/imagesupload" element={<ImagesUpload />} />
 
 
           <Route path="*" element={<NotFound />} />
-          
 
         </Routes>
       </Router>

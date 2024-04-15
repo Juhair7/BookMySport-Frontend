@@ -10,7 +10,7 @@ export const userRegMethod = createAsyncThunk('userReg', async (userData, thunkA
             "Content-Type": "application/json",
             "role": Cookies.get("role")
         }
-        const response = await axios.post('/auth/api/adduser', {
+        const response = await axios.post('api/adduser', {
             userName: userData.userName,
             email: userData.email,
             phoneNumber: userData.phoneNumber,

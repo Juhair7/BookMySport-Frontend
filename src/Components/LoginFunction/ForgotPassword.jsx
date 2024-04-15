@@ -31,7 +31,7 @@ const ForgotPassword = () => {
                 "email": email.value
             }
 
-            const response = await axios.post('/auth/api/forgotpassword', {}, { headers })
+            const response = await axios.post('api/forgotpassword', {}, { headers })
 
             const data = response.data
             console.log(Cookies.get("role"))
@@ -71,7 +71,7 @@ const ForgotPassword = () => {
             "otp": document.getElementById("otp").value
         }
 
-        const response = await axios.post('/auth/api/verifyOtpforforgotpassword', {}, { headers })
+        const response = await axios.post('api/verifyOtpforforgotpassword', {}, { headers })
 
         const dataForOtp = await response.data
 

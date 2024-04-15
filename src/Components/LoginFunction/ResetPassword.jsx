@@ -39,7 +39,7 @@ const ResetPassword = () => {
                 "passwordFromUser": creds.password
             }
 
-            const response = await axios.post('/auth/api/resetpassword', {}, { headers })
+            const response = await axios.post('api/resetpassword', {}, { headers })
 
             const data = await response.data
             console.log(data)
