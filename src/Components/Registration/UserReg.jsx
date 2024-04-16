@@ -2,12 +2,11 @@ import React from 'react'
 import UserSignUpTemp from '../Templates/UserSignUpTemp'
 import { useGoogleOneTapLogin } from '@react-oauth/google';
 import { userRegMethod } from '../../redux/slices/UserRegSlice'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
-import { useDispatch } from 'react-redux';
 import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
 
 const UserReg = () => {
