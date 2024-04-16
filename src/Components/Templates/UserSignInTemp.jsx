@@ -54,7 +54,6 @@ const UserSignInTemp = () => {
                 "Content-Type": "application/json",
                 "role": Cookies.get("role")
             }
-            console.log('/api')
             const response = await axios.post('/api/login', {
                 email: loginData.email,
                 password: loginData.password
@@ -71,7 +70,7 @@ const UserSignInTemp = () => {
                 navigate('/login/otpverification')
             }
             else {
-                toast.error('Invalid email and password', {
+                toast.error(data.message + ". Try after 2 minutes", {
                     duration: 3000,
                     position: 'top-right'
                 });

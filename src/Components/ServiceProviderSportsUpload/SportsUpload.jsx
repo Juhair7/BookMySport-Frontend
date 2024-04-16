@@ -58,7 +58,6 @@ const SportsUpload = () => {
             const response = await axios.post('http://localhost:8070/api/uploadsports', requestData, { headers })
 
             const data = await response.data
-            console.log("data received is ", data)
 
             if (data.success) {
                 toast.success('Sports Uploaded Succesfully', {
