@@ -1,15 +1,17 @@
 import React from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
+import { Search } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Dashboard', href: '/', current: true },
+    { name: 'Explore Sports', href: '#', current: false },
+    { name: 'Custom games', href: '#', current: false },
+    { name: 'Your Bookings', href: '#', current: false },
 ]
 
 function classNames(...classes) {
@@ -25,12 +27,26 @@ const PlayerNavbar = () => {
         Cookies.remove("role")
         Cookies.remove("token")
         navigate('/login')
-
-        console.log("Inside handleSignOut")
     }
 
+    const placeholders = ["Search by Location", "Search by Venue", "Search by Sports"];
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);
+    const [placeholder, setPlaceholder] = useState(placeholders[0]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setPlaceholderIndex((prevIndex) => (prevIndex + 1) % placeholders.length);
+        }, 2000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        setPlaceholder(placeholders[placeholderIndex]);
+    }, [placeholderIndex]);
+
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-green-800">
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -51,8 +67,10 @@ const PlayerNavbar = () => {
                                 <div className="flex flex-shrink-0 items-center">
                                     <img
                                         className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                        alt="Your Company"
+                                        src="https://avatars.githubusercontent.com/u/158540243?s=48&v=4"
+                                        alt="bookmysport"
+                                        style={{ borderRadius: "10px", cursor: "pointer" }}
+                                        onClick={() => navigate('/')}
                                     />
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
@@ -73,15 +91,16 @@ const PlayerNavbar = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                <button
-                                    type="button"
-                                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                >
-                                    <span className="absolute -inset-1.5" />
-                                    <span className="sr-only">View notifications</span>
-                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+
+                            <div className=" relative text-gray-600">
+                                <input className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none text-center font-medium"
+                                    type="search" name="search" placeholder={placeholder} style={{ width: "600px" }} />
+                                <button type="submit" className="absolute right-0 top-0 mt-2 mr-4">
+                                    <Search />
                                 </button>
+                            </div>
+
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
                                 {/* Profile dropdown */}
                                 <Menu as="div" className="relative ml-3">
@@ -109,7 +128,7 @@ const PlayerNavbar = () => {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-                                                        
+
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Your Profile
@@ -119,7 +138,7 @@ const PlayerNavbar = () => {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-                                                        
+
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Settings
@@ -131,7 +150,7 @@ const PlayerNavbar = () => {
                                                     <a
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                         onClick={handleSignOut}
-                                                        style={{cursor:"pointer"}}
+                                                        style={{ cursor: "pointer" }}
                                                     >
                                                         Sign out
                                                     </a>
