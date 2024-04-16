@@ -59,7 +59,6 @@ const ImagesUpload = () => {
 
       const response = await axios.post('http://localhost:8070/api/uploadimages', formData, { headers })
       const data = await response.data
-      console.log("Data is ", data)
       if (data.success) {
         toast.success('Image upload successfully', {
           duration: 3000,
@@ -76,7 +75,6 @@ const ImagesUpload = () => {
         });
       }
     } catch (error) {
-      console.log(error.message)
       toast.error('Something went wrong. Try again', {
         duration: 3000,
         position: 'top-right'

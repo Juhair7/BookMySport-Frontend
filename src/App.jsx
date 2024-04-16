@@ -15,13 +15,16 @@ import MainHome from "./Components/HomePage/MainHome";
 import ServiceProviderDash from "./Components/HomePage/ServiceProviderDash";
 import SportsUpload from "./Components/ServiceProviderSportsUpload/SportsUpload";
 import ImagesUpload from "./Components/ServiceProviderSportsUpload/ImagesUpload";
+import MainNavBar from "./Components/NavBarComp/MainNavBar";
+import Cookies from 'js-cookie';
 
 function App() {
   return (
     <>
       <Router>
+      <MainNavBar />
         <Routes>
-          <Route exact path="/" element={<MainHome/>} />
+          <Route exact path="/" element={<MainHome />} />
           <Route exact path="/roleselect" element={<SelectRole />} />
           <Route exact path="/playersignup" element={<UserReg />} />
           <Route exact path="/spreg" element={<SPReg />} />
@@ -29,7 +32,6 @@ function App() {
           <Route path="/login/otpverification" element={<OTPVerification />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
-
 
 
           <Route path="/serviceproviderdashboard" element={<ServiceProviderDash />} />

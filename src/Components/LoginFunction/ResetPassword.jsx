@@ -5,8 +5,14 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
 
 const ResetPassword = () => {
+
+    const dispatch = useDispatch()
+
+    dispatch(setNavbarState(false))
 
     const email = useSelector((state) => state.email.data)
 
@@ -30,8 +36,6 @@ const ResetPassword = () => {
         });
 
         try {
-
-            console.log(creds.password,creds.confirmPassword)
             const headers = {
                 "Content-Type": "application/json",
                 "role": Cookies.get("role"),
@@ -42,7 +46,6 @@ const ResetPassword = () => {
             const response = await axios.post('api/resetpassword', {}, { headers })
 
             const data = await response.data
-            console.log(data)
 
             if (data.success) {
                 toast.success('Password Reset Successfully', {

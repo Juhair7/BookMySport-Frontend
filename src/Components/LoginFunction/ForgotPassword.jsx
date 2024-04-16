@@ -6,14 +6,16 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setEmail } from '../../redux/slices/EmailStoreSlice'
+import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
 
 const ForgotPassword = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    dispatch(setNavbarState(false))
+
     const [otpVisibility, setotpVisibility] = useState(false)
-    const [selectedRole, setSelectedRole] = useState(null);
 
     const handleForgotPassword = async (e) => {
         e.preventDefault()
@@ -34,8 +36,6 @@ const ForgotPassword = () => {
             const response = await axios.post('api/forgotpassword', {}, { headers })
 
             const data = response.data
-            console.log(Cookies.get("role"))
-            console.log(data)
             if (data.success) {
                 toast.success('Enter the otp', {
                     duration: 3000,
@@ -51,7 +51,6 @@ const ForgotPassword = () => {
                 })
             }
         } catch (error) {
-            console.log(error.message)
             toast.error('Something went wrong', {
                 duration: 3000,
                 position: "top-right"

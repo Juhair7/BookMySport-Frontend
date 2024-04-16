@@ -5,10 +5,15 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import {setNavbarState} from '../../redux/slices/NavbarStateSlice'
 
 const OTPVerification = () => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    dispatch(setNavbarState(false))
 
     const email = useSelector((state) => state.email.data)
     const inputRefs = [
@@ -59,6 +64,7 @@ const OTPVerification = () => {
                 })
                 setTimeout(() => {
                     Cookies.set("token", data.token);
+                    dispatch(setNavbarState(true))
                     navigate('/');
                 }, 2000);
             }
