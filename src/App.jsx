@@ -17,6 +17,8 @@ import SportsUpload from "./Components/ServiceProviderSportsUpload/SportsUpload"
 import ImagesUpload from "./Components/ServiceProviderSportsUpload/ImagesUpload";
 import MainNavBar from "./Components/NavBarComp/MainNavBar";
 import Cookies from 'js-cookie';
+import PlayerSlotBooking from "./Components/SlotBookings/PlayerSlotBooking";
+import BookingInterface from "./Components/SlotBookings/BookingInterface";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
       <Router>
       <MainNavBar />
         <Routes>
+          {/* Authentication Related Routes */}
           <Route exact path="/" element={<MainHome />} />
           <Route exact path="/roleselect" element={<SelectRole />} />
           <Route exact path="/playersignup" element={<UserReg />} />
@@ -34,11 +37,16 @@ function App() {
           <Route path="/resetpassword" element={<ResetPassword />} />
 
 
+          {/* Service Provider related Routes */}
           <Route path="/serviceproviderdashboard" element={<ServiceProviderDash />} />
           <Route path="/sportsupload" element={<SportsUpload />} />
           <Route exact path="/imagesupload" element={<ImagesUpload />} />
 
+          {/* Booking related Routes */}
+          <Route exact path="/bookslot/:arenaId" element={<BookingInterface />} />
 
+
+          {/* Error path */}
           <Route path="*" element={<NotFound />} />
 
         </Routes>

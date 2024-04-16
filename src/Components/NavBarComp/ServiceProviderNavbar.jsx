@@ -54,8 +54,8 @@ const ServiceProviderNavbar = () => {
                                     <img
                                         className="h-8 w-auto"
                                         src="https://avatars.githubusercontent.com/u/158540243?s=48&v=4"
-                                        alt="Your Company"
-                                        style={{borderRadius:"10px"}}
+                                        alt="bookmysport"
+                                        style={{borderRadius:"10px",cursor:"pointer"}}
                                     />
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
