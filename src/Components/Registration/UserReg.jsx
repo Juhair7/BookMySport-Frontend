@@ -7,10 +7,13 @@ import { jwtDecode } from 'jwt-decode';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
 
 const UserReg = () => {
 
   const dispatch = useDispatch()
+  dispatch(setNavbarState(false))
 
   const [userData, setuserData] = useState({
     userName: "",

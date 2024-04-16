@@ -4,12 +4,14 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
 
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Dashboard', href: '/', current: true },
+    { name: 'Upload Sports', href: '/sportsupload', current: false },
+    { name: 'Upload Playground Images', href: '/imagesupload', current: false },
+    { name: 'Check Bookings', href: '#', current: false },
 ]
 
 function classNames(...classes) {
@@ -19,17 +21,18 @@ function classNames(...classes) {
 const ServiceProviderNavbar = () => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleSignOut = (e) => {
         e.preventDefault()
         Cookies.remove("role")
         Cookies.remove("token")
-
+        dispatch(setNavbarState(false))
         navigate('/login')
     }
 
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-green-800">
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -50,8 +53,9 @@ const ServiceProviderNavbar = () => {
                                 <div className="flex flex-shrink-0 items-center">
                                     <img
                                         className="h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                                        src="https://avatars.githubusercontent.com/u/158540243?s=48&v=4"
                                         alt="Your Company"
+                                        style={{borderRadius:"10px"}}
                                     />
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
