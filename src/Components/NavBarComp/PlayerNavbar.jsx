@@ -3,22 +3,25 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import { Search } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-const navigation = [
-    { name: 'Dashboard', href: '/', current: true },
-    { name: 'Explore Sports', href: '#', current: false },
-    { name: 'Custom games', href: '#', current: false },
-    { name: 'Your Bookings', href: '#', current: false },
-]
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 const PlayerNavbar = () => {
+    const location = useLocation()
+
+    const navigation = [
+        { name: 'Dashboard', href: '/', current: location.pathname === '/' ? true : false },
+        { name: 'Explore Sports', href: '#', current: false },
+        { name: 'Custom games', href: '#', current: false },
+        { name: 'Your Bookings', href: '#', current: false },
+    ]
 
     const navigate = useNavigate()
 
@@ -46,7 +49,7 @@ const PlayerNavbar = () => {
     }, [placeholderIndex]);
 
     return (
-        <Disclosure as="nav" className="bg-green-800">
+        <Disclosure as="nav" className="bg-green-800 sticky top-0 z-50">
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
