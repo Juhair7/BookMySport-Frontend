@@ -7,8 +7,6 @@ import { Sunrise, Sunset, Star } from 'lucide-react';
 import { getArenaImagesMethod } from '../../redux/slices/GetArenaImagesSlice'
 import LoadingPage from '../Errorpages/LoadingPage'
 import SportSelectionComp from './SportSelectionComp';
-import axios from 'axios';
-import { apiConfig } from '../../Constants/ApiConfig'
 
 const BookingInterface = () => {
 
@@ -31,8 +29,6 @@ const BookingInterface = () => {
     });
 
     const [images, setimages] = useState([])
-    const [sports, setsports] = useState([])
-
 
     useEffect(() => {
         const handleRequest = async () => {
@@ -56,19 +52,6 @@ const BookingInterface = () => {
         }
 
         fetchArenaImages()
-
-        const fetchAllSportsByArenaId = async () => {
-            const headers = {
-                "Content-Type": "application/json",
-                "spId": arenaId
-            }
-
-            const response = await axios.get(`${apiConfig.sp}/getsports`, { headers })
-            const data = await response.data
-            setsports(data)
-        }
-
-        fetchAllSportsByArenaId()
 
     }, [arenaId, dispatch])
 
