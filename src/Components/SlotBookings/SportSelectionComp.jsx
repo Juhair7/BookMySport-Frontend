@@ -4,7 +4,6 @@ import axios from 'axios'
 import { apiConfig } from '../../Constants/ApiConfig'
 import toast, { Toaster } from 'react-hot-toast';
 import { Autocomplete, TextField } from '@mui/material';
-
 import dayjs from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -20,14 +19,18 @@ const SportSelectionComp = (props) => {
     const [price, setprice] = useState(0)
 
     const now = new Date();
+    //States to get the booked slots
     const [fromTime, setfromTime] = useState(dayjs().hour(now.getHours()).minute(0))
     const [endTime, setendTime] = useState(dayjs().hour(now.getHours() + 1).minute(0))
-    const [bookingDate, setbookingDate] = useState(dayjs().hour(now.getHours))
+    const [bookingDate, setbookingDate] = useState(null)
     const [numerOfCourts, setnumerOfCourts] = useState(null)
+    const [sportId, setsportId] = useState(null)
 
-    const courts = Array.from({ length: numerOfCourts }, (_, index) => index + 1);
 
-    // const [defalutInfo, setdefalutInfo] = useState(null)
+    //Displaying the courts
+    const [courtsAvailable, setcourtsAvailable] = useState([])
+
+    const [emptyCourts, setemptyCourts] = useState([])
 
     useEffect(() => {
         const fetchAllSportsByArenaId = async () => {
@@ -43,7 +46,6 @@ const SportSelectionComp = (props) => {
                 const response = await axios.get(`${apiConfig.sp}/getsports`, { headers });
                 const data = response.data;
                 setsports(data);
-                // setdefalutInfo(data[0])
 
             } catch (error) {
                 toast.error("Failed to fetch sports. Please try again later.", {
@@ -59,15 +61,95 @@ const SportSelectionComp = (props) => {
 
     const handleSportInfo = (event, value) => {
         if (value) {
-            console.log("Selected Sport:", value);
             setprice(value.pricePerHour)
             setnumerOfCourts(value.numberOfCourts)
+            setsportId(value.sportId)
         }
     }
 
     const handleBooking = () => {
 
     }
+
+    useEffect(() => {
+
+        if (arenaId === null || sportId === null || bookingDate === null || fromTime.hour() === null || endTime.hour() === null) {
+            return
+        }
+
+        const fetchCourtsFromBookings = async () => {
+
+            const headers = {
+                "Content-Type": "application/json"
+            }
+
+            const responseFromUserSlot = await axios.post(`${apiConfig.userSlot}/getbookedslots`, {
+
+                spId: arenaId,
+                sportId: sportId,
+                dateOfBooking: bookingDate,
+                startTime: fromTime.hour(),
+                stopTime: endTime.hour()
+
+            }, { headers });
+
+            const dataFromUserSlots = responseFromUserSlot.data;
+
+            if (dataFromUserSlots) {
+
+                if (dataFromUserSlots.courtNumber !== undefined) {
+                    setcourtsAvailable((prev) => prev.concat(dataFromUserSlots.courtNumber.split(',').map(Number)))
+                }
+            }
+            else {
+                setcourtsAvailable([])
+            }
+
+            const responseFromCustomGames = await axios.post(`${apiConfig.customGames}/getcustombookedslots`, {
+
+                arenaId: arenaId,
+                sportId: sportId,
+                dateOfBooking: bookingDate,
+                startTime: fromTime.hour(),
+                stopTime: endTime.hour()
+
+            }, { headers });
+
+            const dataFromCustomGames = responseFromCustomGames.data;
+
+            if (dataFromCustomGames !== undefined) {
+                if (dataFromCustomGames.courtNumber !== undefined) {
+                    setcourtsAvailable((prev) => prev.concat(dataFromCustomGames.courtNumber.split(',').map(Number)))
+                }
+            }
+            else {
+                setcourtsAvailable([])
+            }
+
+        }
+        fetchCourtsFromBookings()
+
+    }, [fromTime, endTime, bookingDate, sportId])
+
+    useEffect(() => {
+        const findAbsentCourts = async () => {
+
+            if (!courtsAvailable) {
+                return
+            }
+
+            // Create a set of all possible court numbers up to the total number of courts
+            const allCourts = new Set(Array.from({ length: numerOfCourts }, (_, i) => i + 1));
+
+            // Filter out the numbers that are present in the array
+            const absentCourts = Array.from(allCourts).filter(court => !courtsAvailable.includes(court));
+
+            setemptyCourts(absentCourts)
+
+        }
+
+        findAbsentCourts()
+    }, [courtsAvailable])
 
     return (
         <>
@@ -126,18 +208,32 @@ const SportSelectionComp = (props) => {
                                     sx={{ width: 300 }}
                                     renderInput={(params) => <TextField {...params} label="Sport" />}
                                     onChange={handleSportInfo}
-                                // value={defalutInfo}
                                 />
                             </div >
                         </div>
 
                         <div className='grid grid-cols-3 gap-3 my-4'>
-                            {courts.map((item) => (
-                                <div key={item}>
-                                    <Button variant="outlined">Court {item}</Button>
-                                </div>
-                            ))}
+                            {sportId === null ? (
+                                <h6>Select the sport</h6>
+                            ) : bookingDate === null ? <h6>Please the select the date</h6> : (
+                                <>
+                                    {emptyCourts.length === 0 ? (
+                                        <p className='text-center'>All courts are booked</p>
+                                    ) : (
+                                        emptyCourts.length !== 0 ? (
+                                            emptyCourts.map((item) => (
+                                                <div key={item}>
+                                                    <Button variant="outlined">Court {item}</Button>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <h6>Loading courts...</h6>
+                                        )
+                                    )}
+                                </>
+                            )}
                         </div>
+
 
                     </div>
                     <div className="tour-receipt-detail">
