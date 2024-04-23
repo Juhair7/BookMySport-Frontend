@@ -97,7 +97,7 @@ const BookingInterface = () => {
                                 <div className="swiper">
 
                                     <div className="swiper-wrapper">
-                                        {images.map((image) => {
+                                        {images.length !== 0 ? images.map((image) => {
                                             return <div className="swiper-slide my-3" key={image.imageId}>
                                                 <div className="swiper-image">
                                                     <img
@@ -105,7 +105,7 @@ const BookingInterface = () => {
                                                     />
                                                 </div>
                                             </div>
-                                        })}
+                                        }) : <h1>Loading Images...</h1>}
                                     </div>
                                 </div>
                             </div>
