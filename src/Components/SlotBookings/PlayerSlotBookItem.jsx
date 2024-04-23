@@ -56,7 +56,7 @@ const PlayerSlotBookItem = (props) => {
                         <div className="relative h-56 overflow-hidden rounded-lg md:h-90">
                             {images.map((image, index) => {
                                 return <div className="duration-700 ease-in-out" data-carousel-item key={image.imageId} style={{ display: currentIndex === index ? 'block' : 'none' }}>
-                                    <img src={image.imageURL} alt="..." />
+                                    <img src={image.imageURL} alt={arena.centreName} />
                                 </div>
                             })}
                         </div>

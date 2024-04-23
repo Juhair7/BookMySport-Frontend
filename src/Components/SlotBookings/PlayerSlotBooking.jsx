@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PlayerSlotBookItem from './PlayerSlotBookItem'
 import axios from 'axios'
+import { apiConfig } from '../../Constants/ApiConfig'
 
 const PlayerSlotBooking = () => {
 
@@ -10,7 +11,7 @@ const PlayerSlotBooking = () => {
 
     const fetchAllarenas = async () => {
 
-      const response = await axios.get('api/getallarenas')
+      const response = await axios.get(`${apiConfig.auth}/getallarenas`)
 
       const data = await response.data
       setarenas(data)

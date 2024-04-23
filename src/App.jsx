@@ -16,8 +16,6 @@ import ServiceProviderDash from "./Components/HomePage/ServiceProviderDash";
 import SportsUpload from "./Components/ServiceProviderSportsUpload/SportsUpload";
 import ImagesUpload from "./Components/ServiceProviderSportsUpload/ImagesUpload";
 import MainNavBar from "./Components/NavBarComp/MainNavBar";
-import Cookies from 'js-cookie';
-import PlayerSlotBooking from "./Components/SlotBookings/PlayerSlotBooking";
 import BookingInterface from "./Components/SlotBookings/BookingInterface";
 
 function App() {
