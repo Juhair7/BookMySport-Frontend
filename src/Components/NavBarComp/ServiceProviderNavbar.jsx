@@ -6,19 +6,25 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
+import { useLocation } from 'react-router-dom';
 
-const navigation = [
-    { name: 'Dashboard', href: '/', current: true },
-    { name: 'Upload Sports', href: '/sportsupload', current: false },
-    { name: 'Upload Playground Images', href: '/imagesupload', current: false },
-    { name: 'Check Bookings', href: '#', current: false },
-]
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 const ServiceProviderNavbar = () => {
+
+    const location = useLocation()
+
+    const navigation = [
+        { name: 'Dashboard', href: '/', current: location.pathname === '/' ? true : false },
+        { name: 'Upload Sports', href: '/sportsupload', current: location.pathname === '/sportsupload' ? true : false },
+        { name: 'Upload Playground Images', href: '/imagesupload', current: location.pathname === '/imagesupload' ? true : false },
+        { name: 'Check Bookings', href: '#', current: false },
+        { name: 'Update your playground details', href: '/deleteimages', current: location.pathname === '/deleteimages' ? true : false }
+    ]
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -32,7 +38,7 @@ const ServiceProviderNavbar = () => {
     }
 
     return (
-        <Disclosure as="nav" className="bg-green-800 sticky top-0">
+        <Disclosure as="nav" className="bg-green-800 sticky top-0" style={{zIndex:20}}>
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -55,7 +61,7 @@ const ServiceProviderNavbar = () => {
                                         className="h-8 w-auto"
                                         src="https://avatars.githubusercontent.com/u/158540243?s=48&v=4"
                                         alt="bookmysport"
-                                        style={{borderRadius:"10px",cursor:"pointer"}}
+                                        style={{ borderRadius: "10px", cursor: "pointer" }}
                                     />
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
@@ -133,7 +139,7 @@ const ServiceProviderNavbar = () => {
                                                 {({ active }) => (
                                                     <a
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                        style={{cursor:"pointer"}}
+                                                        style={{ cursor: "pointer" }}
                                                         onClick={handleSignOut}
                                                     >
                                                         Sign out
