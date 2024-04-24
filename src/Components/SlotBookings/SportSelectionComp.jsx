@@ -250,7 +250,7 @@ const SportSelectionComp = (props) => {
 
     return (
         <>
-            <div className="tour-sidebar sticky top-20 z-40" style={{ marginTop: "54px" }}>
+            <div className="tour-sidebar sticky top-20 z-40" style={{ marginTop: "54px",width:"550px" }}>
                 <div className="tour-receipt">
                     <div className="tour-receipt-head">
                         <div className="tour-amount">
@@ -259,7 +259,7 @@ const SportSelectionComp = (props) => {
                         </div>
                         <div className="tour-discount">-10%</div>
                     </div>
-                    <div className="tour-receipt-select" style={{ width: "430px" }}>
+                    <div className="tour-receipt-select" style={{ width: "445px", }}>
 
                         <div style={{ marginLeft: "70px", marginTop: "-15px" }}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -273,7 +273,7 @@ const SportSelectionComp = (props) => {
                         </div>
 
                         <div className="tour-receipt-select-top" >
-                            <div className="" style={{ marginLeft: "-10px" }}>
+                            <div  style={{ marginLeft: "-10px" }}>
                                 <div className="tour-receipt-select-content">
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DemoContainer components={['TimePicker', 'TimePicker']}>
@@ -362,7 +362,7 @@ const SportSelectionComp = (props) => {
                             <div className="tour-receipt-detail-price">₹{price * (endTime.hour() - fromTime.hour())}</div>
                         </div>
                     </div>
-                    <div className="tour-receipt-button">
+                    <div className="tour-receipt-button" style={{marginTop:"-2px"}}>
                         <button className="book-button" onClick={handlePanel} style={{ backgroundColor: "#1976d2" }}>Book Now </button>
                     </div>
                 </div>

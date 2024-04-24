@@ -5,6 +5,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { apiConfig } from '../../Constants/ApiConfig'
 
 const ImagesUpload = () => {
 
@@ -57,7 +58,7 @@ const ImagesUpload = () => {
         "role": Cookies.get("role")
       }
 
-      const response = await axios.post('http://localhost:8070/api/uploadimages', formData, { headers })
+      const response = await axios.post(`${apiConfig.sp}/uploadimages`, formData, { headers })
       const data = await response.data
       if (data.success) {
         toast.success('Image upload successfully', {
@@ -85,6 +86,15 @@ const ImagesUpload = () => {
     }
   }
 
+  const handleDeletePhoto = (index) => {
+    const updatedFiles = [...selectedFile];
+    updatedFiles.splice(index, 1);
+    setSelectedFile(updatedFiles);
+    const updatedPreviews = [...previews];
+    updatedPreviews.splice(index, 1);
+    setPreviews(updatedPreviews);
+  };
+
   return (
     <>
       <div className="flex items-center justify-center h-screen" style={{ backgroundImage: 'url("pexels-photo-1103829.jpeg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', border: '2px solid black', opacity: 0.75, backgroundAttachment: 'fixed' }}>
@@ -95,12 +105,23 @@ const ImagesUpload = () => {
             <div className="text-center">
               <div className="flex flex-wrap justify-center">
                 {previews.map((preview, index) => (
-                  <img key={index} src={preview} alt={`Preview ${index}`} className="max-w-xs h-auto max-h-40 m-2" />
+                  <>
+                    <div className='grid'>
+                      <div>
+                        <img key={index} src={preview} alt={`Preview ${index}`} className="max-w-xs h-auto max-h-40 m-2" />
+                      </div>
+                      <div>
+                        <button
+                          className="bg-red-500 text-dark px-2 py-1 rounded-full"
+                          onClick={() => handleDeletePhoto(index)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </>
                 ))}
               </div>
-              <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-              </svg>
               <div className="mt-4 flex text-sm leading-6 text-gray-600">
                 <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                   <span>Upload the images</span>
@@ -111,7 +132,10 @@ const ImagesUpload = () => {
               <p className="text-xs leading-5 text-gray-600">PNG, JPG up to 10MB</p>
             </div>
           </div>
-          <Button variant="contained" style={{ marginLeft: "100px", marginTop: "15px" }} onClick={handleImagesUpload}>Upload</Button>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Button variant="contained" style={{ marginLeft: "30px", marginTop: "15px" }} onClick={handleImagesUpload}>Upload</Button>
+          <Button variant="contained" color='error' style={{ marginLeft: "30px", marginTop: "15px" }} onClick={()=>navigate('/deleteimages')}>Delete Images. Takes you to delete the images individually</Button>
+          </div>
         </div>
       </div>
       <Toaster />
