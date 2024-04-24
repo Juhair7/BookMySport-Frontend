@@ -23,7 +23,7 @@ const ServiceProviderNavbar = () => {
         { name: 'Upload Sports', href: '/sportsupload', current: location.pathname === '/sportsupload' ? true : false },
         { name: 'Upload Playground Images', href: '/imagesupload', current: location.pathname === '/imagesupload' ? true : false },
         { name: 'Check Bookings', href: '#', current: false },
-        { name: 'Update your playground details', href: '/deleteimages', current: location.pathname === '/deleteimages' ? true : false }
+        { name: 'Update your playground details', href: '/updatearenadetails', current: location.pathname === '/updatearenadetails' ? true : false }
     ]
 
     const navigate = useNavigate()
@@ -38,7 +38,7 @@ const ServiceProviderNavbar = () => {
     }
 
     return (
-        <Disclosure as="nav" className="bg-green-800 sticky top-0" style={{zIndex:20}}>
+        <Disclosure as="nav" className="bg-green-800 sticky top-0" style={{zIndex:20000}}>
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

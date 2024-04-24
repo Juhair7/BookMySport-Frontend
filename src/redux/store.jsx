@@ -4,6 +4,7 @@ import EmailStoreSlice from './slices/EmailStoreSlice'
 import NavbarStateSlice from './slices/NavbarStateSlice'
 import GetArenaDetails from './slices/GetArenaDetails'
 import GetArenaImagesSlice from './slices/GetArenaImagesSlice'
+import FetchSportsSlice from './slices/FetchSportsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     email:EmailStoreSlice,
     navbar:NavbarStateSlice,
     arenaDetails:GetArenaDetails,
-    arenaImages:GetArenaImagesSlice
+    arenaImages:GetArenaImagesSlice,
+    fetchSports:FetchSportsSlice
   },
 })
