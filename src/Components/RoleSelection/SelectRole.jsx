@@ -3,18 +3,15 @@ import '../../Styles/SelectRole.css'
 import RecipeReviewCard from './RecipeReviewCard';
 import { playerDescription, serviceProviderDescription, moreDescriptionForPlayer, moreDescriptionForServiceProvider } from '../../Constants/Description'
 import { useNavigate } from 'react-router';
-import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
 
 const SelectRole = () => {
 
-    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    dispatch(setNavbarState(false))
 
-    // useEffect(() => {
-    //     if (Cookies.get("token") == null) {
-    //         navigate('/login')
-    //     }
-    // }, [])
+    const navigate = useNavigate()
 
     return (
         <>
@@ -31,7 +28,7 @@ const SelectRole = () => {
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <div>
                         <button
-                        onClick={()=>navigate('/login')}
+                            onClick={() => navigate('/login')}
                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Login

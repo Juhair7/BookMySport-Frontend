@@ -38,7 +38,7 @@ const ServiceProviderNavbar = () => {
     }
 
     return (
-        <Disclosure as="nav" className="bg-green-800 sticky top-0" style={{zIndex:20000}}>
+        <Disclosure as="nav" className="bg-green-800 sticky top-0" style={{ zIndex: 2000 }}>
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

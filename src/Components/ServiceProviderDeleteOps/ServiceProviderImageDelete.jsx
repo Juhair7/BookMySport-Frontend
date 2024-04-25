@@ -81,7 +81,7 @@ const ServiceProviderImageDelete = () => {
 
   return (
     <>
-      {images.length !== 0 ? <div className="tour container" style={{ marginTop: "-55px" }}>
+      {images.length !== 0 ? <div className="tour container" style={{ marginTop: "-55px",marginLeft:"20px" }}>
         <div className="tour-head">
         </div>
         <div className="tour-wrapper" style={{ marginTop: "-22px" }}>

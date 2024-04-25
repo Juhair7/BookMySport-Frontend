@@ -134,7 +134,7 @@ const ImagesUpload = () => {
           </div>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Button variant="contained" style={{ marginLeft: "30px", marginTop: "15px" }} onClick={handleImagesUpload}>Upload</Button>
-          <Button variant="contained" color='error' style={{ marginLeft: "30px", marginTop: "15px" }} onClick={()=>navigate('/deleteimages')}>Delete Images. Takes you to delete the images individually</Button>
+          <Button variant="contained" color='error' style={{ marginLeft: "30px", marginTop: "15px" }} onClick={()=>navigate('/updatearenadetails')}>Delete Images. Takes you to delete the images individually</Button>
           </div>
         </div>
       </div>

@@ -4,14 +4,11 @@ import { fetchSportsMethod } from '../../redux/slices/FetchSportsSlice'
 import { Trophy, Edit, Coins, GalleryHorizontalEnd } from 'lucide-react'
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import zIndex from '@mui/material/styles/zIndex'
 
 const ServiceProviderSportUpdate = () => {
 
     const dispatch = useDispatch()
     const [sports, setsports] = useState([])
-    const [modal, setmodal] = useState(false)
     const [open, setOpen] = useState(false)
     const cancelButtonRef = useRef(null)
 
@@ -25,7 +22,7 @@ const ServiceProviderSportUpdate = () => {
 
         const fetchSports = async () => {
             const response = await dispatch(fetchSportsMethod())
-            console.log("Response is", response.payload)
+            console.log(response.payload)
             setsports(response.payload)
         }
 
@@ -36,13 +33,30 @@ const ServiceProviderSportUpdate = () => {
         setnewSportDetails({ ...newSportDetails, [e.target.name]: e.target.value })
     }
 
+    const closeModal = (e) => {
+        e.preventDefault()
+        setOpen(false)
+        console.log("Updated sports is ", newSportDetails)
+    }
+
+    const setClickedSports = (sport) => {
+        setOpen(true)
+        setnewSportDetails({
+            sportName: sport.sportName,
+            pricePerHour: sport.pricePerHour,
+            numberOfCourts: sport.numberOfCourts
+        })
+
+        const newArray=[...sport];
+    }
+
     return (
         <>
             <div className='tour-content-title' style={{ marginLeft: "56px" }} >Sports details Updation</div>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-4 z-1' style={{ position: 'relative', zIndex: '999' }}>
                 {sports.map((sport) => (
                     <>
-                        <div id="timeline-modal" tabIndex="-1" aria-hidden="true" className="overflow-y-auto overflow-x-hidden z-50  items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full" style={{ marginLeft: "36px" }} key={sport.sportId}>
+                        <div id="timeline-modal" tabIndex="-1" aria-hidden="true" className="overflow-y-auto overflow-x-hidden z-50  items-center w-90 md:inset-0 h-[calc(100%-1rem)] max-h-full" style={{ marginLeft: "20px", padding: "20px" }} key={sport.sportId}>
                             <div className="relative p-4 w-full max-w-md max-h-full grid">
                                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
@@ -58,7 +72,7 @@ const ServiceProviderSportUpdate = () => {
                                                 </span>
                                                 <h3 className="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">{sport.sportName}</h3>
                                                 <button type="button" className="py-2 px-3 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" style={{ marginLeft: "-2px" }}
-                                                    onClick={() => setOpen(true)}
+                                                    onClick={() => setClickedSports(sport)}
                                                 >
                                                     <Edit size={"15px"} />
                                                     Edit sport name
@@ -146,25 +160,28 @@ const ServiceProviderSportUpdate = () => {
                                                     <form className="space-y-4" action="#">
                                                         <div>
                                                             <label htmlFor="sportName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sport Name</label>
-                                                            <input type="text" name="sportName" id="sportName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+                                                            <input type="text" name="sportName" id="sportName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required
+                                                                value={newSportDetails.sportName}
+                                                                onChange={handleSportDetailsChanges}
+                                                            />
                                                         </div>
                                                         <div>
                                                             <label htmlFor="pricePerHour" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price Per Hour</label>
-                                                            <input type="number" name="pricePerHour" id="pricePerHour"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required />
+                                                            <input type="number" name="pricePerHour" id="pricePerHour" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required
+                                                                value={newSportDetails.pricePerHour}
+                                                                onChange={handleSportDetailsChanges}
+                                                            />
                                                         </div>
-                                                        <div className="flex justify-between">
-                                                            <div className="flex items-start">
-                                                                <div className="flex items-center h-5">
-                                                                    <input id="remember" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
-                                                                </div>
-                                                                <label htmlFor="remember" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-                                                            </div>
-                                                            <a href="#" className="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+                                                        <div>
+                                                            <label htmlFor="numberOfCourts" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of courts</label>
+                                                            <input type="number" name="numberOfCourts" id="numberOfCourts" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required
+                                                                value={newSportDetails.numberOfCourts}
+                                                                onChange={handleSportDetailsChanges}
+                                                            />
                                                         </div>
-                                                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
-                                                        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                                                            Not registered? <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
-                                                        </div>
+                                                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                            onClick={closeModal}
+                                                        >Confirm changes</button>
                                                     </form>
                                                 </div>
                                             </div>
