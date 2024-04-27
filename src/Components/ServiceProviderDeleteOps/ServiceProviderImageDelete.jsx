@@ -54,8 +54,9 @@ const ServiceProviderImageDelete = () => {
         }
       });
 
+
       setimages(prevImages => prevImages.filter(img => img.imageId !== selectedImage.imageId));
-      if (response.success) {
+      if (response.data.success) {
         toast.success('Image deletion successfull', {
           duration: 3000,
           position: "top-right"
@@ -81,7 +82,7 @@ const ServiceProviderImageDelete = () => {
 
   return (
     <>
-      {images.length !== 0 ? <div className="tour container" style={{ marginTop: "-55px",marginLeft:"20px" }}>
+      {images.length !== 0 ? <div className="tour container" style={{ marginTop: "-55px", marginLeft: "20px" }}>
         <div className="tour-head">
         </div>
         <div className="tour-wrapper" style={{ marginTop: "-22px" }}>
@@ -109,7 +110,7 @@ const ServiceProviderImageDelete = () => {
                     })}
                   </div>
 
-                  <Transition.Root show={open}>
+                  <Transition.Root show={open} >
                     <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
                       <Transition.Child
 
@@ -187,7 +188,12 @@ const ServiceProviderImageDelete = () => {
           <span className='mx-3 font-bold'>To add images</span>
           <Button variant='contained' className='mx-3' onClick={() => navigate('/imagesupload')}>Upload Images</Button>
         </div>
-      </div> : <LoadingPage />}
+      </div> :
+        <div className='flex ' style={{marginLeft:"80px",marginTop:"20px"}}>
+          <div>No images found</div>
+          <span className='mx-3 font-bold'>To add images</span>
+          <Button variant='contained' className='mx-3' style={{width:"120px"}} onClick={() => navigate('/imagesupload')}>Upload Images</Button>
+        </div>}
 
       <script src='../../Styles/BookingInterface.js'></script>
     </>
