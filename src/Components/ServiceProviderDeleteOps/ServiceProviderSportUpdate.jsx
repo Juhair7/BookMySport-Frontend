@@ -61,7 +61,7 @@ const ServiceProviderSportUpdate = () => {
     const finalUpdate = async (e) => {
 
         e.preventDefault()
-        const loadingToastId = toast.loading('Uploading images', {
+        const loadingToastId = toast.loading('Updating sport', {
             duration: Infinity,
             position: 'top-right'
         });
