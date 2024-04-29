@@ -17,7 +17,7 @@ import SportsUpload from "./Components/ServiceProviderSportsUpload/SportsUpload"
 import ImagesUpload from "./Components/ServiceProviderSportsUpload/ImagesUpload";
 import MainNavBar from "./Components/NavBarComp/MainNavBar";
 import BookingInterface from "./Components/SlotBookings/BookingInterface";
-import ServiceProviderImageDelete from './Components/ServiceProviderDeleteOps/ServiceProviderImageDelete'
+import PlaygroundDetailsUpdation from "./Components/ServiceProviderDeleteOps/PlaygroundDetailsUpdation";
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
           <Route exact path="/serviceproviderdashboard" element={<ServiceProviderDash />} />
           <Route exact path="/sportsupload" element={<SportsUpload />} />
           <Route exact path="/imagesupload" element={<ImagesUpload />} />
-          <Route exact path="/deleteimages" element={<ServiceProviderImageDelete />} />
+          <Route exact path="/updatearenadetails" element={<PlaygroundDetailsUpdation />} />
 
           {/* Booking related Routes */}
           <Route exact path="/bookslot/:arenaId" element={<BookingInterface />} />
