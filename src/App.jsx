@@ -18,6 +18,7 @@ import ImagesUpload from "./Components/ServiceProviderSportsUpload/ImagesUpload"
 import MainNavBar from "./Components/NavBarComp/MainNavBar";
 import BookingInterface from "./Components/SlotBookings/BookingInterface";
 import PlaygroundDetailsUpdation from "./Components/ServiceProviderDeleteOps/PlaygroundDetailsUpdation";
+import CustomGamesDashBoard from "./Components/CustomGames/CustomGamesDashBoard";
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
 
           {/* Booking related Routes */}
           <Route exact path="/bookslot/:arenaId" element={<BookingInterface />} />
+
+
+          <Route exact path="/customgames" element={<CustomGamesDashBoard />} />
 
 
           {/* Error path */}
