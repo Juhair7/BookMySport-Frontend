@@ -9,7 +9,6 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import LoadingPage from '../Errorpages/LoadingPage'
 
 const ServiceProviderImageDelete = () => {
 
