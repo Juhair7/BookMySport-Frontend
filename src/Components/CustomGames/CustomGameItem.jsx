@@ -217,7 +217,7 @@ const CustomGameItem = (props) => {
         <div className="flex flex-col p-4" style={{ marginTop: "-125px" }}>
           <p className="text-sm text-sky-500 font-bold">Sport: {sportDetails && sportDetails.sportName}</p>
           <p className="text-sm text-sky-500 font-bold">Price Per Hour: ₹{sportDetails && sportDetails.pricePerHour}</p>
-          <Rating name="read-only" value={sportDetails.rating} precision={0.1} readOnly />
+          <Rating name="read-only" value={sportDetails && sportDetails.rating} precision={0.1} readOnly />
         </div>
 
         <div className="flex flex-col p-3" style={{ marginBottom: "-80px" }}>
