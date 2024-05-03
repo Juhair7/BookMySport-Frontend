@@ -128,7 +128,10 @@ const UserSignInTemp = () => {
                                     Password
                                 </label>
                                 <div className="text-sm">
-                                    <a href="/forgotpassword" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                    <a className="font-semibold text-indigo-600 hover:text-indigo-500"
+                                    style={{cursor:"pointer"}}
+                                    onClick={()=>navigate("/forgotpassword")}
+                                    >
                                         Forgot password?
                                     </a>
                                 </div>
