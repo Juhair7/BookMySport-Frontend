@@ -3,7 +3,9 @@ import PlayerSlotBookItem from './PlayerSlotBookItem'
 import axios from 'axios'
 import { apiConfig } from '../../Constants/ApiConfig'
 
-const PlayerSlotBooking = () => {
+const PlayerSlotBooking = (props) => {
+
+  const { arena } = props
 
   const [arenas, setarenas] = useState([])
 

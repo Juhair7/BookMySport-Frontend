@@ -20,7 +20,7 @@ const PlayerNavbar = () => {
     const navigation = [
         { name: 'Dashboard', href: '/', current: location.pathname === '/' ? true : false },
         { name: 'Explore Sports', href: '#', current: false },
-        { name: 'Custom games', href: '/customgames', current: location.pathname === '/customgames' ? true : false },
+        { name: 'Custom games', href: '/customgames', current: location.pathname === '/customgames' | location.pathname === '/createcustomgame' ? true : false },
         { name: 'Your Bookings', href: '#', current: false }
     ]
 

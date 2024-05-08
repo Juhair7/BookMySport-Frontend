@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import '../../Styles/BookingInterface.css'
 import axios from 'axios'
 import { apiConfig } from '../../Constants/ApiConfig'
-import CustomGameItem from './CustomGameItem'
+import CustomGameJoineeItem from './CustomGameJoineeItem'
+import CustomGameCarousel from './CustomGameCarousel'
 
 const CustomGamesDashBoard = () => {
 
@@ -21,9 +22,10 @@ const CustomGamesDashBoard = () => {
 
     return (
         <>
+            <CustomGameCarousel />
             <div className='grid gap-3 my-2' >
                 {customGames.map((game) => (
-                    <CustomGameItem key={game.gameId} game={game} />
+                    <CustomGameJoineeItem key={game.gameId} game={game} />
                 ))}
             </div>
 
