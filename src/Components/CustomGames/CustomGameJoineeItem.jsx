@@ -8,8 +8,11 @@ import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckBadgeIcon } from '@heroicons/react/24/outline'
+import { useNavigate } from 'react-router-dom';
 
 const CustomGameJoineeItem = (props) => {
+
+  const navigate=useNavigate()
 
   const { game } = props
   const [images, setimages] = useState([])
@@ -138,6 +141,9 @@ const CustomGameJoineeItem = (props) => {
           duration: 3000,
           position: "top-right"
         })
+        setTimeout(()=>{
+          navigate('/')
+        },2000)
       }
       else {
         toast.error(dataForJoiningGame.message, {
