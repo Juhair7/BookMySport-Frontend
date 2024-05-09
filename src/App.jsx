@@ -21,6 +21,8 @@ import PlaygroundDetailsUpdation from "./Components/ServiceProviderDeleteOps/Pla
 import CustomGamesDashBoard from "./Components/CustomGames/CustomGamesDashBoard";
 import CustomGameCreation from "./Components/CustomGames/CustomGameCreation";
 import CustomGameDetails from "./Components/CustomGames/CustomGameDetails";
+import YourBookings from "./Components/Bookings/YourBookings"
+import SlotReshedule from "./Components/Bookings/SlotReshedule"
 
 function App() {
   return (
@@ -47,11 +49,13 @@ function App() {
 
           {/* Booking related Routes */}
           <Route exact path="/bookslot/:arenaId" element={<BookingInterface />} />
+          <Route exact path="/yourbookings" element={<YourBookings />} />
 
           {/* Custom games related Routes */}
           <Route exact path="/customgames" element={<CustomGamesDashBoard />} />
           <Route exact path="/createcustomgame" element={<CustomGameCreation />} />
           <Route exact path="/customgamecreate/:arenaId" element={<CustomGameDetails />} />
+          <Route exact path="/slotreshedule" element={<SlotReshedule />} />
 
 
           {/* Error path */}
