@@ -8,8 +8,11 @@ import dayjs from 'dayjs';
 import Cookies from 'js-cookie';
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckBadgeIcon } from '@heroicons/react/24/outline'
+import { useNavigate } from 'react-router-dom';
 
-const CustomGameItem = (props) => {
+const CustomGameJoineeItem = (props) => {
+
+  const navigate=useNavigate()
 
   const { game } = props
   const [images, setimages] = useState([])
@@ -138,6 +141,9 @@ const CustomGameItem = (props) => {
           duration: 3000,
           position: "top-right"
         })
+        setTimeout(()=>{
+          navigate('/')
+        },2000)
       }
       else {
         toast.error(dataForJoiningGame.message, {
@@ -239,7 +245,7 @@ const CustomGameItem = (props) => {
             <p className="text-sm text-sky-500 font-bold">Courts booked: {game.courtNumber}</p>
             <p className="text-sm text-sky-500 font-bold">Total Number of Players entered by host: {game.numberOfPlayers}</p>
             <p className="text-sm text-sky-500 font-bold">Number of players joined: {players.length}</p>
-            <p className="text-sm text-sky-500 font-bold">Slots empty: {players.length !== 0 ? players.length - 1 : players.length} </p>
+            <p className="text-sm text-sky-500 font-bold">Slots empty: {game.numberOfPlayers - players.length} </p>
 
           </div>
         </div>
@@ -323,4 +329,4 @@ const CustomGameItem = (props) => {
   )
 }
 
-export default CustomGameItem
+export default CustomGameJoineeItem

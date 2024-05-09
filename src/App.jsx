@@ -19,6 +19,8 @@ import MainNavBar from "./Components/NavBarComp/MainNavBar";
 import BookingInterface from "./Components/SlotBookings/BookingInterface";
 import PlaygroundDetailsUpdation from "./Components/ServiceProviderDeleteOps/PlaygroundDetailsUpdation";
 import CustomGamesDashBoard from "./Components/CustomGames/CustomGamesDashBoard";
+import CustomGameCreation from "./Components/CustomGames/CustomGameCreation";
+import CustomGameDetails from "./Components/CustomGames/CustomGameDetails";
 
 function App() {
   return (
@@ -46,8 +48,10 @@ function App() {
           {/* Booking related Routes */}
           <Route exact path="/bookslot/:arenaId" element={<BookingInterface />} />
 
-
+          {/* Custom games related Routes */}
           <Route exact path="/customgames" element={<CustomGamesDashBoard />} />
+          <Route exact path="/createcustomgame" element={<CustomGameCreation />} />
+          <Route exact path="/customgamecreate/:arenaId" element={<CustomGameDetails />} />
 
 
           {/* Error path */}
