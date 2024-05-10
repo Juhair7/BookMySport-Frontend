@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
@@ -18,6 +18,9 @@ import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import ResheduleModal from './ResheduleModal';
+import axios from 'axios';
+import { apiConfig } from '../../Constants/ApiConfig';
+import { Button } from '@mui/material';
 
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
     position: 'absolute',
@@ -88,11 +91,64 @@ const YourBookingItem = (props) => {
         seteditSlotOpen(true)
     }
 
-    const handleEdit = (editInfo) => {
-        console.log(editInfo)
+    const [editInfo, seteditInfo] = useState({
+        spId: data.spId,
+        sportId: data.sportId,
+        startTime: "",
+        stopTIme: "",
+        dateOfBooking: "",
+        courtNumber: ""
+    })
+
+    const handleEdit = (fromTime, endTime, dateOfBooking, courtNumber) => {
+        console.log(courtNumber)
+        seteditInfo({
+            startTime: fromTime,
+            stopTime: endTime,
+            dateOfBooking: dateOfBooking,
+            courtNumber: courtNumber
+        })
     }
 
+    const handleSubmitEditInfo = async () => {
+        console.log(editInfo)
+        console.log("cOURTNUMBER is", editInfo.courtNumber)
+        // const responseForReshedule = await axios.put(`${apiConfig.userSlot}/rescheduleslot`, editInfo)
+        // const dataForReshedule = await responseForReshedule.data
+        // console.log(dataForReshedule)
+    }
 
+    const [sportDetails, setsportDetails] = useState(null)
+    const [centreDetails, setcentreDetails] = useState(null)
+
+    useEffect(() => {
+
+        const fetchSportNameAndCentreName = async () => {
+
+            const responseForCentreName = await axios.get(`${apiConfig.auth}/getdetailsbyspid`, {
+                headers: {
+                    spId: data.spId
+                }
+            })
+
+            const dataForCentreName = await responseForCentreName.data
+            setcentreDetails(dataForCentreName)
+
+
+            const responseForSportName = await axios.get(`${apiConfig.sp}/getsportbyspidandsportid`, {
+                headers: {
+                    spId: data.spId,
+                    sportId: data.sportId
+                }
+            })
+
+            const dataForSportName = await responseForSportName.data
+            setsportDetails(dataForSportName)
+
+        }
+
+        fetchSportNameAndCentreName()
+    }, [])
 
     return (
         <>
@@ -110,10 +166,10 @@ const YourBookingItem = (props) => {
             >
                 <Box sx={{ display: 'flex', gap: 1 }}>
                     <Chip size="sm" variant="soft">
-                        Sport Name
+                        {sportDetails && sportDetails.sportName}
                     </Chip>
                     <Chip size="sm" variant="soft">
-                        Centre Name
+                        {centreDetails && centreDetails.centreName}
                     </Chip>
                     <Chip size="sm" variant="soft">
                         Date: {formatDate(data.dateOfBooking)}
@@ -132,10 +188,21 @@ const YourBookingItem = (props) => {
                     </Typography>
                 </div>
                 <CardContent>
-                    <Typography level="title-lg" color='white'>Individual License</Typography>
+                    <Typography level="title-lg" color='white'>Courts booked</Typography>
                     <Typography level="body-md" color='white'>
-                        This license allows you to use the Symbol System Design with unlimited
-                        amount of personal and commercial projects.
+                        <div className='grid grid-cols-3 gap-3 my-2'>
+                            <>
+                                {data.courtNumber && data.courtNumber.split(',').sort((a, b) => a - b).map((item) => (
+                                    <div key={item}>
+                                        <Button
+                                            variant="contained"
+                                        >
+                                            Court {item}
+                                        </Button>
+                                    </div>
+                                ))}
+                            </>
+                        </div>
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -262,13 +329,13 @@ const YourBookingItem = (props) => {
                             >
                                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                     <div className='mt-10'>
-                                        <ResheduleModal onEdit={handleEdit} arenaId={data.spId} sportIdToSearch={data.sportId}/>
+                                        <ResheduleModal onEdit={handleEdit} arenaId={data.spId} sportIdToSearch={data.sportId} />
                                     </div>
-                                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                    {/* <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                         <button
                                             type="button"
                                             className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-                                        // onClick={handlePostDeleteOps}
+                                            onClick={handleSubmitEditInfo}
                                         >
                                             Confirm Changes
                                         </button>
@@ -279,7 +346,7 @@ const YourBookingItem = (props) => {
                                         >
                                             Cancel
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

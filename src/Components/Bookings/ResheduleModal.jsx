@@ -9,10 +9,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Button } from '@mui/material';
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { History, CalendarDays, Trophy } from 'lucide-react';
 
 const ResheduleModal = (props) => {
 
@@ -26,17 +22,40 @@ const ResheduleModal = (props) => {
     const [bookingDate, setbookingDate] = useState(dayjs())
     const [numerOfCourts, setnumerOfCourts] = useState(null)
 
-    const [sportNameSelected, setsportNameSelected] = useState("")
-
     //Displaying the courts
     const [courtsAvailable, setcourtsAvailable] = useState([])
 
     const [emptyCourts, setemptyCourts] = useState([])
 
-    useEffect(()=>{
-        //TODO
-        //Add a get request to get the sport information to get the number of courts
-    },[])
+    useEffect(() => {
+        try {
+
+            const fetchSportInfo = async () => {
+                const headers = {
+                    "spId": arenaId,
+                    "sportId": sportIdToSearch
+                }
+
+                const responseForFindingBySpIdAndSportId = await axios.get(`${apiConfig.sp}/getsportbyspidandsportid`, { headers })
+                const dataOfSport = await responseForFindingBySpIdAndSportId.data
+                setnumerOfCourts(dataOfSport.numberOfCourts)
+                setprice(dataOfSport.pricePerHour)
+            }
+
+            fetchSportInfo()
+        } catch (error) {
+
+        }
+    }, [])
+
+
+    const [selectedCourts, setSelectedCourts] = useState([]);
+
+    const selectedCourtsRef = useRef([]);
+
+    useEffect(() => {
+        selectedCourtsRef.current = selectedCourts.join(",");
+    }, [selectedCourts]);
 
     useEffect(() => {
 
@@ -50,8 +69,6 @@ const ResheduleModal = (props) => {
                 "Content-Type": "application/json"
             }
 
-            console.log(arenaId,sportIdToSearch,bookingDate,fromTime.hour(),endTime.hour())
-
             const responseFromUserSlot = await axios.post(`${apiConfig.userSlot}/getbookedslots`, {
 
                 spId: arenaId,
@@ -63,7 +80,6 @@ const ResheduleModal = (props) => {
             }, { headers });
 
             const dataFromUserSlots = responseFromUserSlot.data;
-            console.log("Response from responseFromUserSlot ",dataFromUserSlots)
 
             if (dataFromUserSlots) {
 
@@ -86,7 +102,6 @@ const ResheduleModal = (props) => {
             }, { headers });
 
             const dataFromCustomGames = responseFromCustomGames.data;
-            console.log("Response from responseFromCustomGames ",dataFromCustomGames)
 
             if (dataFromCustomGames !== undefined) {
                 if (dataFromCustomGames.courtNumber !== undefined) {
@@ -98,10 +113,13 @@ const ResheduleModal = (props) => {
             }
 
         }
+
         fetchCourtsFromBookings()
         setSelectedCourts([])
+        onEdit(fromTime, endTime, bookingDate, selectedCourts.join(","))
 
     }, [fromTime, endTime, bookingDate])
+
 
     useEffect(() => {
         const findAbsentCourts = async () => {
@@ -123,8 +141,8 @@ const ResheduleModal = (props) => {
         findAbsentCourts()
     }, [courtsAvailable])
 
-    const [selectedCourts, setSelectedCourts] = useState([]);
-    const [open, setOpen] = useState(false)
+
+
 
     const handleCourtClick = (courtNumber) => {
         // Check if the court is already selected
@@ -136,29 +154,6 @@ const ResheduleModal = (props) => {
             setSelectedCourts([...selectedCourts, courtNumber]);
         }
     };
-
-    const handlePanel = () => {
-        setOpen(true)
-    }
-
-    const timeConverter = (time) => {
-        if (0 <= time && time <= 12) {
-            return time + "AM"
-        }
-        return time - 12 + "PM"
-    }
-
-    const dateConverter = (date) => {
-        const dateParts = date.split('-');
-        const year = parseInt(dateParts[2], 10);
-        const month = parseInt(dateParts[1], 10) - 1;
-        const day = parseInt(dateParts[0], 10);
-        const dateToBeConverted = new Date(year, month, day);
-
-        const formattedDate = dateToBeConverted.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-
-        return formattedDate;
-    }
 
     return (
         <>
@@ -255,134 +250,27 @@ const ResheduleModal = (props) => {
                             className="tour-receipt-detail-item tour-receipt-detail-total"
                         >
                             <div className="tour-receipt-detail-title">Total</div>
-                            <div className="tour-receipt-detail-price">₹{price * (endTime.hour() - fromTime.hour())}</div>
+                            <div className="tour-receipt-detail-price">₹{price * (endTime.hour() - fromTime.hour()) * selectedCourts.length}</div>
                         </div>
                     </div>
-                </div>
 
-                <Transition.Root show={open} as={Fragment}>
-                    <Dialog as="div" className="pointer-events-auto relative w-screen max-w-md z-50" onClose={setOpen}>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-in-out duration-500"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="ease-in-out duration-500"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
+                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button
+                            type="button"
+                            className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                            // onClick={handleSubmitEditInfo}
                         >
-                            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-                        </Transition.Child>
-
-                        <div className="fixed inset-0 overflow-hidden">
-                            <div className="absolute inset-0 overflow-hidden">
-                                <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-                                    <Transition.Child
-                                        as={Fragment}
-                                        enter="transform transition ease-in-out duration-500 sm:duration-700"
-                                        enterFrom="translate-x-full"
-                                        enterTo="translate-x-0"
-                                        leave="transform transition ease-in-out duration-500 sm:duration-700"
-                                        leaveFrom="translate-x-0"
-                                        leaveTo="translate-x-full"
-                                    >
-                                        <Dialog.Panel className="pointer-events-auto relative w-screen max-w-md">
-                                            <Transition.Child
-                                                as={Fragment}
-                                                enter="ease-in-out duration-500"
-                                                enterFrom="opacity-0"
-                                                enterTo="opacity-100"
-                                                leave="ease-in-out duration-500"
-                                                leaveFrom="opacity-100"
-                                                leaveTo="opacity-0"
-                                            >
-                                                <div className="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
-                                                    <button
-                                                        type="button"
-                                                        className="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                                                        onClick={() => setOpen(false)}
-                                                    >
-                                                        <span className="absolute -inset-2.5" />
-                                                        <span className="sr-only">Close panel</span>
-                                                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                                                    </button>
-                                                </div>
-                                            </Transition.Child>
-                                            <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                                                <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                                                    <div id="timeline-modal" tabIndex="-1" aria-hidden="true" className="overflow-y-auto overflow-x-hidden justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                        <div className="relative p-4 w-full max-w-md max-h-full">
-                                                            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                                <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                                                                        Your Booking Summary
-                                                                    </h3>
-                                                                </div>
-                                                                <div className="p-4 md:p-5">
-                                                                    <ol className="relative border-s border-gray-200 dark:border-gray-600 ms-3.5 mb-4 md:mb-5">
-                                                                        <li className="mb-10 ms-8">
-                                                                            <span className="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600 mt-1">
-                                                                                <History color='white' size={"20px"} />
-                                                                            </span>
-                                                                            <h3 className="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">From time - End time<span className="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Latest</span></h3>
-                                                                            <time className="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">{timeConverter(fromTime.hour())} - {timeConverter(endTime.hour())}</time>
-                                                                        </li>
-                                                                        <li className="mb-10 ms-8">
-                                                                            <span className="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600 mt-1">
-                                                                                <CalendarDays color='white' size={"20px"} />
-                                                                            </span>
-                                                                            <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Date of Booking</h3>
-                                                                            <time className="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">
-
-                                                                                {dateConverter(`${bookingDate.date().toString()}-${bookingDate.month() + 1}-${bookingDate.year()}`)}
-
-                                                                            </time>
-                                                                        </li>
-                                                                        <li className="mb-10 ms-8">
-                                                                            <span className="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600 mt-1">
-                                                                                <Trophy color='white' size={"20px"} />
-                                                                            </span>
-                                                                            <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Sport Selected</h3>
-                                                                            <time className="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">{sportNameSelected}</time>
-                                                                        </li>
-                                                                        <li className="ms-8">
-                                                                            <span className="absolute flex items-center justify-center w-6 h-6 bg-gray-100 rounded-full -start-3.5 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600 mt-1">
-                                                                                <Trophy color='white' size={"20px"} />
-                                                                            </span>
-                                                                            <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Courts selected</h3>
-                                                                            <time className="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400 grid grid-cols-3 gap-2">
-
-                                                                                {selectedCourts.map((item) => (
-                                                                                    <div key={item} >
-                                                                                        Court - {item}
-                                                                                    </div>
-                                                                                ))}
-
-                                                                            </time>
-                                                                        </li>
-                                                                    </ol>
-                                                                    <button className="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                                        onClick={() => setOpen(false)}>
-                                                                        Back to edit
-                                                                    </button>
-                                                                    <button className="text-white inline-flex w-full justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-2"
-                                                                    >
-                                                                        Confirm Booking
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Dialog.Panel>
-                                    </Transition.Child>
-                                </div>
-                            </div>
-                        </div>
-                    </Dialog>
-                </Transition.Root>
-
+                            Confirm Changes
+                        </button>
+                        <button
+                            type="button"
+                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                            // onClick={() => seteditSlotOpen(false)}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
 
             </div>
         </>
