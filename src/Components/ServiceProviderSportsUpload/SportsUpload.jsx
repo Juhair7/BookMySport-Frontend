@@ -4,6 +4,7 @@ import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { Trash2, CloudUpload } from 'lucide-react'
+import {apiConfig} from '../../Constants/ApiConfig'
 
 const SportsUpload = () => {
 
@@ -73,7 +74,7 @@ const SportsUpload = () => {
                 "role": Cookies.get("role"),
                 "token": Cookies.get("token")
             }
-            const response = await axios.post('http://localhost:8070/api/uploadsports', requestData, { headers })
+            const response = await axios.post(`${apiConfig.sp}/uploadsports`, requestData, { headers })
 
             const data = await response.data
 

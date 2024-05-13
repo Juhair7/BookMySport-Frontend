@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import {setNavbarState} from '../../redux/slices/NavbarStateSlice'
+import {apiConfig} from '../../Constants/ApiConfig'
 
 const OTPVerification = () => {
 
@@ -53,7 +54,7 @@ const OTPVerification = () => {
                 "email": email,
                 "otpforTwoFAFromUser": otp
             }
-            const response = await axios.post('http://localhost:8090/api/2fa', {}, { headers })
+            const response = await axios.post(`${apiConfig.auth}/2fa`, {}, { headers })
 
             const data = await response.data
 
