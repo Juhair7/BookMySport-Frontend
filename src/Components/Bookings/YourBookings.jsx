@@ -4,11 +4,16 @@ import axios from 'axios'
 import { apiConfig } from '../../Constants/ApiConfig'
 import Cookies from 'js-cookie'
 import { toast, Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux'
+import { setRenderConditionMethod } from '../../redux/slices/SetRenderAfterReshedule'
 
 const YourBookings = () => {
 
     const [bookingData, setbookingData] = useState([])
     const [deleteSlotState, setdeleteSlotState] = useState(false)
+
+    const dispatch=useDispatch()
+    const state = useSelector((state) => state.renderBookingComponent.data)
 
     useEffect(() => {
         const fetchUserBookings = async () => {
@@ -24,7 +29,9 @@ const YourBookings = () => {
 
         fetchUserBookings()
         setdeleteSlotState(false)
-    }, [deleteSlotState])
+        dispatch(setRenderConditionMethod(false))
+
+    }, [deleteSlotState, state])
 
     const handleDeleteBooking = async (slotId) => {
 
@@ -47,7 +54,7 @@ const YourBookings = () => {
                 toast.success('Booking delete successfully', {
                     duration: 3000,
                     position: "top-right"
-                })                
+                })
                 setdeleteSlotState(true)
             }
             else {

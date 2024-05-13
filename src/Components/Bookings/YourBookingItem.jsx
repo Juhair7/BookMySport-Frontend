@@ -91,31 +91,8 @@ const YourBookingItem = (props) => {
         seteditSlotOpen(true)
     }
 
-    const [editInfo, seteditInfo] = useState({
-        spId: data.spId,
-        sportId: data.sportId,
-        startTime: "",
-        stopTIme: "",
-        dateOfBooking: "",
-        courtNumber: ""
-    })
-
-    const handleEdit = (fromTime, endTime, dateOfBooking, courtNumber) => {
-        console.log(courtNumber)
-        seteditInfo({
-            startTime: fromTime,
-            stopTime: endTime,
-            dateOfBooking: dateOfBooking,
-            courtNumber: courtNumber
-        })
-    }
-
-    const handleSubmitEditInfo = async () => {
-        console.log(editInfo)
-        console.log("cOURTNUMBER is", editInfo.courtNumber)
-        // const responseForReshedule = await axios.put(`${apiConfig.userSlot}/rescheduleslot`, editInfo)
-        // const dataForReshedule = await responseForReshedule.data
-        // console.log(dataForReshedule)
+    const handleCloseEditModal=()=>{
+        seteditSlotOpen(false)
     }
 
     const [sportDetails, setsportDetails] = useState(null)
@@ -189,20 +166,15 @@ const YourBookingItem = (props) => {
                 </div>
                 <CardContent>
                     <Typography level="title-lg" color='white'>Courts booked</Typography>
-                    <Typography level="body-md" color='white'>
-                        <div className='grid grid-cols-3 gap-3 my-2'>
-                            <>
-                                {data.courtNumber && data.courtNumber.split(',').sort((a, b) => a - b).map((item) => (
-                                    <div key={item}>
-                                        <Button
-                                            variant="contained"
-                                        >
-                                            Court {item}
-                                        </Button>
-                                    </div>
-                                ))}
-                            </>
-                        </div>
+                    <Typography level="body-md" color='white' sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 3, marginTop: 2 }}>
+                        {data.courtNumber && data.courtNumber.split(',').sort((a, b) => a - b).map((item) => (
+                            <Button
+                                key={item}
+                                variant="contained"
+                            >
+                                Court {item}
+                            </Button>
+                        ))}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -329,24 +301,8 @@ const YourBookingItem = (props) => {
                             >
                                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                     <div className='mt-10'>
-                                        <ResheduleModal onEdit={handleEdit} arenaId={data.spId} sportIdToSearch={data.sportId} />
+                                        <ResheduleModal arenaId={data.spId} sportIdToSearch={data.sportId} slotId={data.slotId} closeModal={handleCloseEditModal}/>
                                     </div>
-                                    {/* <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                        <button
-                                            type="button"
-                                            className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-                                            onClick={handleSubmitEditInfo}
-                                        >
-                                            Confirm Changes
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                            onClick={() => seteditSlotOpen(false)}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div> */}
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
