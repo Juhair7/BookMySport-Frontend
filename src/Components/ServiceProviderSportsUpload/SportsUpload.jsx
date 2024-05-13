@@ -44,11 +44,29 @@ const SportsUpload = () => {
         e.preventDefault();
 
         const requestData = sportsData.map(({ id, ...rest }) => rest);
+        const checkEmptyData = (sportName, price, courtNumber) => {
+            if (sportName === '' || price === '' || courtNumber === '') {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        if (requestData.every(({ sport, price, numberOfCourts }) => checkEmptyData(sport, price, numberOfCourts))) {
+            toast.error("Please upload atleast one sport", {
+                duration: 5000,
+                position: 'top-right'
+            });
+
+            return 
+        }
+
 
         const loadingToastId = toast.loading('Uploading Sports', {
             duration: Infinity,
             position: 'top-right'
         });
+
         try {
             const headers = {
                 "Content-Type": "application/json",
@@ -65,7 +83,7 @@ const SportsUpload = () => {
                     position: "top-right"
                 })
                 setTimeout(() => {
-                    navigate('/');
+                    navigate('/updatearenadetails');
                 }, 2000);
             }
             else {
@@ -119,7 +137,7 @@ const SportsUpload = () => {
                 {renderSportsForm()}
                 <button onClick={handleAddSport} className="mt-4 p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">Add Next Sport</button>
                 <button onClick={handleSubmit} className="mt-6 p-3 bg-green-500 text-white rounded-md hover:bg-green-600">Upload Sports</button>
-                <CloudUpload onClick={handleSubmit} style={{ cursor: "pointer", marginTop: "25px", marginLeft: "5px" }}/>
+                <CloudUpload onClick={handleSubmit} style={{ cursor: "pointer", marginTop: "25px", marginLeft: "5px" }} />
             </div>
             <Toaster />
         </>

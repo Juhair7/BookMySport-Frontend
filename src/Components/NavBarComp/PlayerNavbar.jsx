@@ -21,7 +21,7 @@ const PlayerNavbar = () => {
         { name: 'Dashboard', href: '/', current: location.pathname === '/' ? true : false },
         { name: 'Explore Sports', href: '#', current: false },
         { name: 'Custom games', href: '/customgames', current: location.pathname === '/customgames' | location.pathname === '/createcustomgame' ? true : false },
-        { name: 'Your Bookings', href: '#', current: false }
+        { name: 'Your Bookings', href: '/yourbookings', current: location.pathname === '/yourbookings' ? true : false }
     ]
 
 

@@ -129,8 +129,8 @@ const UserSignInTemp = () => {
                                 </label>
                                 <div className="text-sm">
                                     <a className="font-semibold text-indigo-600 hover:text-indigo-500"
-                                    style={{cursor:"pointer"}}
-                                    onClick={()=>navigate("/forgotpassword")}
+                                        style={{ cursor: "pointer" }}
+                                        onClick={() => navigate("/forgotpassword")}
                                     >
                                         Forgot password?
                                     </a>
@@ -183,7 +183,7 @@ const UserSignInTemp = () => {
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Not a member?{' '}
                         <a className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                        onClick={()=>navigate('/roleselect')}
+                            onClick={() => navigate('/roleselect')}
                         >
                             Sign up
                         </a>
