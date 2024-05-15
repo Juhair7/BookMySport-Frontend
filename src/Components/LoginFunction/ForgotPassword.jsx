@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setEmail } from '../../redux/slices/EmailStoreSlice'
 import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
-import {apiConfig} from '../../Constants/ApiConfig'
+import { apiConfig } from '../../Constants/ApiConfig'
 
 const ForgotPassword = () => {
 
@@ -42,7 +42,7 @@ const ForgotPassword = () => {
                 "email": email.value
             }
 
-            const response = await axios.post('api/forgotpassword', {}, { headers })
+            const response = await axios.post(`${apiConfig.auth}/forgotpassword`, {}, { headers })
 
             const data = response.data
             if (data.success) {
@@ -72,13 +72,13 @@ const ForgotPassword = () => {
     }
 
     const handleVerifyOTP = async (e) => {
-        
+
         e.preventDefault()
         const headers = {
             "Content-Type": "application/json",
             "email": email.value,
             "otp": document.getElementById("otp").value,
-            "role":Cookies.get("role")
+            "role": Cookies.get("role")
         }
 
         const response = await axios.post(`${apiConfig.auth}/verifyOtpforforgotpassword`, {}, { headers })
