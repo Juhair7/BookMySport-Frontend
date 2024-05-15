@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
+import { apiConfig } from '../../Constants/ApiConfig'
 
 export const userRegMethod = createAsyncThunk('userReg', async (userData, thunkAPI) => {
 
@@ -10,7 +11,7 @@ export const userRegMethod = createAsyncThunk('userReg', async (userData, thunkA
             "Content-Type": "application/json",
             "role": Cookies.get("role")
         }
-        const response = await axios.post('api/adduser', {
+        const response = await axios.post(`${apiConfig.auth}/adduser`, {
             userName: userData.userName,
             email: userData.email,
             phoneNumber: userData.phoneNumber,

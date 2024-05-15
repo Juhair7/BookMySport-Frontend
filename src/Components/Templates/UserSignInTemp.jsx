@@ -54,7 +54,7 @@ const UserSignInTemp = () => {
                 "Content-Type": "application/json",
                 "role": Cookies.get("role")
             }
-            const response = await axios.post('/api/login', {
+            const response = await axios.post(`${apiConfig.auth}/login`, {
                 email: loginData.email,
                 password: loginData.password
             }, { headers })
