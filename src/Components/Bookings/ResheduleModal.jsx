@@ -172,7 +172,6 @@ const ResheduleModal = (props) => {
                 courtNumber: selectedCourts.join(",")
             })
             const dataForReshedule = await responseForReshedule.data
-            console.log(dataForReshedule)
             if (dataForReshedule.success) {
                 toast.success(`Slot Resheduled successfully and ${dataForReshedule.message}`, {
                     duration: 3000,

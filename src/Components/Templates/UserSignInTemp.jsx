@@ -6,6 +6,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setEmail } from '../../redux/slices/EmailStoreSlice'
+import { apiConfig } from '../../Constants/ApiConfig'
 
 const UserSignInTemp = () => {
 
@@ -184,6 +185,7 @@ const UserSignInTemp = () => {
                         Not a member?{' '}
                         <a className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                             onClick={() => navigate('/roleselect')}
+                            style={{ cursor: "pointer" }}
                         >
                             Sign up
                         </a>

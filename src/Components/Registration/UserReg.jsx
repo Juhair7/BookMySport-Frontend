@@ -8,10 +8,12 @@ import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
 import { setNavbarState } from '../../redux/slices/NavbarStateSlice'
+import { useNavigate } from 'react-router-dom';
 
 const UserReg = () => {
 
   const dispatch = useDispatch()
+  const navigate=useNavigate()
   dispatch(setNavbarState(false))
 
   const [userData, setuserData] = useState({
@@ -54,6 +56,7 @@ const UserReg = () => {
               duration: 3000,
               position: 'top-right'
             });
+            navigate("/")
           }
           else {
             toast.error('User with mail exists', {

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
+import {apiConfig} from '../../Constants/ApiConfig'
 
 export const spRegMethod = createAsyncThunk('spReg', async (spData, thunkAPI) => {
     try {
