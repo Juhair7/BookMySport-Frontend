@@ -1,6 +1,6 @@
 export const apiConfig = {
-    auth: 'http://localhost:8090/api',
-    sp: 'http://localhost:8070/api',
-    userSlot:'http://localhost:8050/api',
-    customGames:'http://localhost:8030/api'
+    auth: import.meta.env.VITE_AUTH_SERVICE_URL,
+    sp: import.meta.env.VITE_SERVICE_PROVIDER_URL,
+    userSlot:import.meta.env.VITE_USER_SLOT_BOOKING_URL,
+    customGames:import.meta.env.VITE_CUSTOM_GAMES_URL
 };
