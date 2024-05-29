@@ -81,10 +81,6 @@ const ServiceProviderDash = () => {
           position: "top-right"
         });
       }
-      finally {
-        userDetails = {}
-        sportNames = {}
-      }
     };
 
 
