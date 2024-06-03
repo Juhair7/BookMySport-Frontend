@@ -57,6 +57,8 @@ function App() {
           <Route exact path="/customgamecreate/:arenaId" element={<CustomGameDetails />} />
           <Route exact path="/slotreshedule" element={<SlotReshedule />} />
 
+          {/* Profile Route */}
+          <Route exact path="/Profile" element={<Profile />} />
 
           {/* Error path */}
           <Route path="*" element={<NotFound />} />

@@ -24,6 +24,10 @@ const PlayerNavbar = () => {
         { name: 'Your Bookings', href: '/yourbookings', current: location.pathname === '/yourbookings' ? true : false }
     ]
 
+    const handleClick = () => {
+        // Navigate to the profile page
+        navigate("/Profile");
+      };
 
     const handleSignOut = (e) => {
         e.preventDefault()
@@ -131,7 +135,7 @@ const PlayerNavbar = () => {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-
+                                                        onClick={handleClick}
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Your Profile

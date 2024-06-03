@@ -29,6 +29,11 @@ const ServiceProviderNavbar = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const handleClick = () => {
+        // Navigate to the profile page
+        navigate("/Profile");
+      };
+
     const handleSignOut = (e) => {
         e.preventDefault()
         Cookies.remove("role")
@@ -118,7 +123,7 @@ const ServiceProviderNavbar = () => {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-                                                        href="#"
+                                                         onClick={handleClick}
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Your Profile
