@@ -23,12 +23,16 @@ import CustomGameCreation from "./Components/CustomGames/CustomGameCreation";
 import CustomGameDetails from "./Components/CustomGames/CustomGameDetails";
 import YourBookings from "./Components/Bookings/YourBookings"
 import SlotReshedule from "./Components/Bookings/SlotReshedule"
-
+import Profile from "./Components/Profile/Profile"
+import { AvatarProvider } from "./Components/Profile/Avatarcontext"
 function App() {
   return (
     <>
+       <AvatarProvider>
       <Router>
+   
       <MainNavBar />
+
         <Routes>
           {/* Authentication Related Routes */}
           <Route exact path="/" element={<MainHome />} />
@@ -58,13 +62,16 @@ function App() {
           <Route exact path="/slotreshedule" element={<SlotReshedule />} />
 
           {/* Profile Route */}
-          <Route exact path="/Profile" element={<Profile />} />
+       
+          <Route exact path="/Profile" element={ <Profile /> } />
+        
 
           {/* Error path */}
           <Route path="*" element={<NotFound />} />
 
         </Routes>
       </Router>
+      </AvatarProvider>
     </>
   )
 }

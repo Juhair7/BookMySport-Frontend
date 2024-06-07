@@ -16,12 +16,14 @@ import { apiConfig } from "../../Constants/ApiConfig";
 import PlayerView from "./playerView";
 import SPView from "./SPView";
 import EditProfileForm from "./EditProfileForm";
+import { useAvatar } from './Avatarcontext';
 
 
 // Profile component for managing user profile data and rendering appropriate views
 const Profile = () => {
   const [profile, setProfile] = useState({});
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const { avatarUrl,setAvatarUrl } = useAvatar();
+
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const Profile = () => {
       }
     };
     fetchProfile();
-  }, []);
+  }, [setAvatarUrl]);
 
   const handleEdit = () => {
     setIsEditing(true);
