@@ -17,6 +17,7 @@ import PlayerView from "./playerView";
 import SPView from "./SPView";
 import EditProfileForm from "./EditProfileForm";
 import { useAvatar } from './Avatarcontext';
+import toast, { Toaster } from "react-hot-toast";
 
 
 // Profile component for managing user profile data and rendering appropriate views
@@ -44,7 +45,7 @@ const Profile = () => {
         });
         setAvatarUrl(avatarResponse.data.avatar);
       } catch (error) {
-        console.error("Error fetching profile data:", error);
+        toast.error("Error fetching profile data:", error);
       }
     };
     fetchProfile();
@@ -68,7 +69,7 @@ const Profile = () => {
       setAvatarUrl(avatarResponse.data.avatar);
       
     } catch (error) {
-      console.error(
+      toast.error(
         "Error updating profile data:",
         error.response ? error.response.data : error.message
       );
@@ -76,6 +77,7 @@ const Profile = () => {
   };
 
   return (
+    <>
     <Box mt={4} display="flex" justifyContent="center">
       {profile.userName ? (
         isEditing ? (
@@ -95,6 +97,8 @@ const Profile = () => {
         <Typography variant="body1">Loading...</Typography>
       )}
     </Box>
+    <Toaster/>
+    </>
   );
 };
 
