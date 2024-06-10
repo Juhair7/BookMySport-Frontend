@@ -25,6 +25,8 @@ import YourBookings from "./Components/Bookings/YourBookings"
 import SlotReshedule from "./Components/Bookings/SlotReshedule"
 import Profile from "./Components/Profile/Profile"
 import { AvatarProvider } from "./Components/Profile/Avatarcontext"
+import Landing from "./Components/LandingPage/Landing";
+
 function App() {
   return (
     <>
@@ -34,6 +36,9 @@ function App() {
       <MainNavBar />
 
         <Routes>
+
+          <Route exact path="/landing" element={<Landing />} />
+
           {/* Authentication Related Routes */}
           <Route exact path="/" element={<MainHome />} />
           <Route exact path="/roleselect" element={<SelectRole />} />

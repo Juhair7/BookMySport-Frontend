@@ -6,47 +6,53 @@ import { useSelector } from 'react-redux';
 import { apiConfig } from "../../Constants/ApiConfig";
 import { useEffect } from "react";
 import axios from "axios";
-
-
 import { useAvatar } from '../Profile/Avatarcontext';
 import toast, { Toaster } from 'react-hot-toast';
+import { useLocation } from 'react-router-dom';
 
 const MainNavBar = () => {
 
-    const navbarState = useSelector((state) => state.navbar)
+  const location = useLocation()
 
-    const { avatarUrl,setAvatarUrl } = useAvatar();
+  const navbarState = useSelector((state) => state.navbar)
 
+  const { avatarUrl, setAvatarUrl } = useAvatar();
 
-    useEffect(() => {
-        const fetchProfile = async () => {
-          try {
-            const headers = {
-              "Content-Type": "application/json",
-              token: Cookies.get("token"),
-              role: Cookies.get("role"),
-            };
-          
-            const avatarResponse = await axios.get(`${apiConfig.auth}/getavatar`, {
-              headers,
-            });
-            setAvatarUrl(avatarResponse.data.avatar);
-         
-          } catch (error) {
-            toast.error("Error fetching profile data:", error);
-          }
+  useEffect(() => {
+    if (location.pathname === '/landing') {
+      return
+    }
+    const fetchProfile = async () => {
+      try {
+        const headers = {
+          "Content-Type": "application/json",
+          token: Cookies.get("token"),
+          role: Cookies.get("role"),
         };
-        fetchProfile();
-      }, []);
 
-   
-    return (
-        <>
-       
-            {navbarState ? Cookies.get("role") === "user" ? <PlayerNavbar avatarUrl={avatarUrl} /> : <ServiceProviderNavbar avatarUrl={avatarUrl}/> : ""}
-            <Toaster/>
-        </>
-    )
+        const avatarResponse = await axios.get(`${apiConfig.auth}/getavatar`, {
+          headers,
+        });
+        setAvatarUrl(avatarResponse.data.avatar);
+
+      } catch (error) {
+        toast.error("Error fetching profile data:", {
+          duration: 3000,
+          position: "top-right"
+        });
+      }
+    };
+    fetchProfile();
+  }, []);
+
+
+  return (
+    <>
+
+      {navbarState ? Cookies.get("role") === "user" ? <PlayerNavbar avatarUrl={avatarUrl} /> : <ServiceProviderNavbar avatarUrl={avatarUrl} /> : ""}
+      <Toaster />
+    </>
+  )
 }
 
 export default MainNavBar
