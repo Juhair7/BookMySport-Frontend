@@ -43,7 +43,6 @@ const Profile = () => {
           headers,
         });
         setAvatarUrl(avatarResponse.data.avatar);
-        console.log(avatarUrl);
       } catch (error) {
         console.error("Error fetching profile data:", error);
       }
@@ -58,7 +57,6 @@ const Profile = () => {
   const handleSave = async (formData) => {
     try {
       const headers = {
-        //"Content-Type": "multipart/form-data",
         token: Cookies.get("token"),
         role: Cookies.get("role"),
       };
@@ -67,7 +65,6 @@ const Profile = () => {
       const avatarResponse = await axios.get(`${apiConfig.auth}/getavatar`, {
         headers,
       });
-      console.log(avatarResponse.data);
       setAvatarUrl(avatarResponse.data.avatar);
       
     } catch (error) {
@@ -83,7 +80,6 @@ const Profile = () => {
       {profile.userName ? (
         isEditing ? (
           <EditProfileForm
-            onImageChange={(newImage) => console.log(newImage)} // handle image change
             onSave={handleSave}
           />
         ) : Cookies.get("role") === "user" ? (

@@ -30,7 +30,7 @@ function App() {
     <>
        <AvatarProvider>
       <Router>
-   
+
       <MainNavBar />
 
         <Routes>
@@ -62,7 +62,6 @@ function App() {
           <Route exact path="/slotreshedule" element={<SlotReshedule />} />
 
           {/* Profile Route */}
-       
           <Route exact path="/Profile" element={ <Profile /> } />
         
 

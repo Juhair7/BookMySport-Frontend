@@ -15,7 +15,7 @@ function classNames(...classes) {
 }
 
 const ServiceProviderNavbar = ({avatarUrl}) => {
-    console.log(avatarUrl);
+    
     const location = useLocation()
 
     const navigation = [
@@ -105,7 +105,7 @@ const ServiceProviderNavbar = ({avatarUrl}) => {
                                             <span className="sr-only">Open user menu</span>
                                             <img
                                                 className="h-8 w-8 rounded-full"
-                                                src={avatarUrl.avatarUrl}
+                                                src={avatarUrl}
                                                 alt=""
                                             />
                                         </Menu.Button>
@@ -123,7 +123,7 @@ const ServiceProviderNavbar = ({avatarUrl}) => {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-                                                         onClick={handleClick}
+                                                        onClick={handleClick}
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Your Profile

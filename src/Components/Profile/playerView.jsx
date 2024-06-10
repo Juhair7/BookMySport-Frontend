@@ -13,7 +13,6 @@ import {
 
 // PlayerView component for displaying player profile information
 const PlayerView = ({ profile, avatarUrl, onEdit }) => {
-  console.log(avatarUrl);
   return (
     <Container maxWidth="sm">
       <Card elevation={3} sx={{ backgroundColor: "#f0f0f0" }}>

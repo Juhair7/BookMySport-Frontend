@@ -13,7 +13,7 @@ import {
 
 // SPView component for displaying service provider profile information
 const SPView = ({ profile, avatarUrl, onEdit }) => {
-  console.log(avatarUrl);
+  
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Card elevation={3} sx={{ backgroundColor: "#f0f0f0" }}>
@@ -21,7 +21,7 @@ const SPView = ({ profile, avatarUrl, onEdit }) => {
           avatar={
             <Avatar
               alt={profile.userName}
-              src={avatarUrl.avatarUrl}
+              src={avatarUrl}
               sx={{ width: 120, height: 120 }}
             />
           }

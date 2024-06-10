@@ -11,7 +11,7 @@ import {
   Avatar,
 } from "@mui/material";
 
-const EditProfileForm = ({ onImageChange, onSave }) => {
+const EditProfileForm = ({  onSave }) => {
   const [newImage, setNewImage] = useState(null);
 
   const handleSave = () => {
@@ -47,7 +47,6 @@ const EditProfileForm = ({ onImageChange, onSave }) => {
                 style={{ display: "none" }}
                 onChange={(e) => {
                   setNewImage(e.target.files[0]);
-                  onImageChange(e.target.files[0]);
                 }}
                 id="avatar-input"
               />
