@@ -209,6 +209,8 @@ const SportSelectionComp = (props) => {
                 "role": Cookies.get("role")
             }
 
+            console.log(bookingDate)
+
             const responseForSlotBooking = await axios.post(`${apiConfig.userSlot}/bookslot`, {
 
                 spId: arenaId,
