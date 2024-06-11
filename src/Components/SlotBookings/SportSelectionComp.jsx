@@ -359,7 +359,7 @@ const SportSelectionComp = (props) => {
                             className="tour-receipt-detail-item tour-receipt-detail-total"
                         >
                             <div className="tour-receipt-detail-title">Total</div>
-                            <div className="tour-receipt-detail-price">₹{price * (endTime.hour() - fromTime.hour())}</div>
+                            <div className="tour-receipt-detail-price">₹{price * (endTime.hour() - fromTime.hour()) * selectedCourts.length}</div>
                         </div>
                     </div>
                     <div className="tour-receipt-button" style={{marginTop:"-2px"}}>
